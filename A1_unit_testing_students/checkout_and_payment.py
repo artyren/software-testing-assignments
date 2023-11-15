@@ -44,7 +44,7 @@ class ShoppingCart:
         return sum(item.price for item in self.items)
 
 # Function to load products from a CSV file
-def load_products_from_csv(file_path):
+def load_products_from_csv(file_path): #TODO TEST CASES 
     products = []
     with open(file_path, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
@@ -53,11 +53,11 @@ def load_products_from_csv(file_path):
     return products
 
 # Load products from the CSV file
-products= load_products_from_csv("products.csv")
+products= load_products_from_csv("products.csv") 
 cart = ShoppingCart()
 
 # Function to complete the checkout process
-def checkout(user, cart):
+def checkout(user, cart): #TODO TEST CASES 
     if not cart.items:
         print("\nYour basket is empty. Please add items before checking out.")
         return
@@ -85,7 +85,7 @@ def checkout(user, cart):
     print(f"Thank you for your purchase, {user.name}! Your remaining balance is {user.wallet}")
     
 # Function to check the cart and proceed to checkout if requested
-def check_cart(user, cart):
+def check_cart(user, cart): #TODO TEST CASES 
     # Print products in the cart
     for i in cart.retrieve_item():
         print(i.get_product())

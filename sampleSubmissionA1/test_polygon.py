@@ -1,5 +1,6 @@
 from polygon import *
 import pytest
+#IMPORTANT: You must install pytest-mock to run this test file. Make sure you do "pip install pytest-mock" before running this test file.
 
 @pytest.fixture
 def triangle_stub1(mocker):

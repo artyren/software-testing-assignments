@@ -53,7 +53,8 @@ def load_products_from_csv(file_path): #TODO TEST CASES
     return products
 
 # Load products from the CSV file
-products= load_products_from_csv("products.csv") 
+products = load_products_from_csv('/Users/sofiaalfsson/Documents/plugg/IT4/softwaretesting/software-testing-assignments/A1_unit_testing_students/products.csv') 
+
 cart = ShoppingCart()
 
 # Function to complete the checkout process

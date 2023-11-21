@@ -1,5 +1,4 @@
 import json
-import os
 
 #Login as a user
 def login():
@@ -23,7 +22,7 @@ def login():
                     new_pass = input("Password needs to: \nBe at least 8 characters\nHave a special character\nHave at least one upper case character\nEnter new password:")
                 data.append({"username": username, "password": new_pass, "wallet": 0 })
                 file.seek(0)
-                json.dump(data, file, indent=1)
+                json.dump(data, file)
                 file.truncate()
                 return None
             elif answer == "N" or answer == "n":

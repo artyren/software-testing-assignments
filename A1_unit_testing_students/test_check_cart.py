@@ -112,7 +112,7 @@ def test_check_cart_with_no_items(capsys):
         captured = capsys.readouterr()
         assert "Your basket is empty. Please add items before checking out." in captured.out
 
-def test_check_cart_with_unvalid_user(): 
+def test_check_cart_with_unvalid_user_yes(): 
     user = "Helga",
     cart = MockShoppingCart()
     product1 = MockProduct("Computer", 50.0, 2)
@@ -136,5 +136,42 @@ def test_check_cart_with_unvalid_cart():
             check_cart(user, cart)
         assert "'str' object has no attribute 'retrieve_item'" in str(err_str.value)
     
-     
-        
+def test_check_cart_with_other_than_yes_no():
+    user = MockUser("Helga", 100.0)
+    cart = MockShoppingCart()
+    product = MockProduct("Computer", 50.0, 2)
+    cart.add_item(product)
+
+    with patch("builtins.input", side_effect=["hej"]):
+        check_cart_result = check_cart(user, cart)
+    assert check_cart_result is False       
+
+def test_check_cart_with_other_than_yes_no_no_items():
+    user = MockUser("Helga", 100.0)
+    cart = MockShoppingCart()
+
+    with patch("builtins.input", side_effect=["no"]):
+        check_cart_result = check_cart(user, cart)
+    assert check_cart_result is False
+    
+    
+def test_check_cart_with_many_items(capsys): 
+    user = MockUser("Helga", 10000000.0)
+    cart = MockShoppingCart()
+    product1 = MockProduct("Computer", 50.0, 50)
+    product2 = MockProduct("Laptop", 20.0, 50)
+    product3 = MockProduct("Desktop", 60.0, 50)
+    count = 45
+    while count>0:
+        cart.add_item(product1)
+        cart.add_item(product2)
+        cart.add_item(product3)
+        count = count - 1
+    
+    with patch("builtins.input", side_effect=["y"]):
+        check_cart_result = check_cart(user, cart)
+        captured = capsys.readouterr()
+        assert "Thank you for your purchase, Helga!" in captured.out
+        assert user.wallet == 9994150.0
+        assert len(cart.items) == 0  
+    assert check_cart_result is None  

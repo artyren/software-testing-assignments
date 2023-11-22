@@ -86,7 +86,7 @@ def checkout(user, cart):
     print(f"Thank you for your purchase, {user.name}! Your remaining balance is {user.wallet}")
     
 # Function to check the cart and proceed to checkout if requested
-def check_cart(user, cart): #TODO TEST CASES 
+def check_cart(user, cart):
     # Print products in the cart
     for i in cart.retrieve_item():
         print(i.get_product())

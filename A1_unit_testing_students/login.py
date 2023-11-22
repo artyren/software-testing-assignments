@@ -22,7 +22,7 @@ def login():
                     new_pass = input("Password needs to: \nBe at least 8 characters\nHave a special character\nHave at least one upper case character\nEnter new password:")
                 data.append({"username": username, "password": new_pass, "wallet": 0 })
                 file.seek(0)
-                json.dump(data, file)
+                json.dump(data, file, indent=10)
                 file.truncate()
                 return None
             elif answer == "N" or answer == "n":
@@ -32,7 +32,9 @@ def login():
                 print("Answer in wrong format, try again")
 
 #Checks if the password passes the requirements
-def pass_check(password: str):
+def pass_check(password: str) -> bool:
+    if not isinstance(password, str):
+        raise TypeError("Password sent is not a string")
     symbols = set(r"""`~!@#$%^&*()_-+={[}}|\:;"'<,>.?/""")
     case_OK = False
     symbol_OK = False
@@ -45,6 +47,3 @@ def pass_check(password: str):
             case_OK = True
             
     return case_OK and symbol_OK
-
-
-login()

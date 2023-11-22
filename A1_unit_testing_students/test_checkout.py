@@ -74,6 +74,20 @@ def test_insufficient_funds(capsys):
     captured = capsys.readouterr()
     assert "You don't have enough money to complete the purchase." in captured.out
     
+def test_insufficient_funds_several_products(capsys):
+    user = MockUser("Helga", 50.0)
+    cart = MockShoppingCart()
+    product1 = MockProduct("Computer", 20.0, 3)
+    product2 = MockProduct("Desktop", 60.0, 3)
+    
+    cart.add_item(product1)
+    cart.add_item(product2)
+
+    checkout(user, cart)
+
+    captured = capsys.readouterr()
+    assert "You don't have enough money to complete the purchase." in captured.out
+    
 def test_successful_checkout(capsys):
     user = MockUser("Robin", 100.0)
     cart = MockShoppingCart()
@@ -103,5 +117,65 @@ def test_successful_checkout_several_products(capsys):
     assert "Thank you for your purchase, Robin!" in captured.out
     assert user.wallet == 20.0  
     assert len(cart.items) == 0  
+    
+def test_successful_checkout_same_product_twice(capsys):
+    user = MockUser("Robin", 100.0)
+    cart = MockShoppingCart()
+    product = MockProduct("Computer", 20.0, 3)
+    
+    cart.add_item(product)
+    cart.add_item(product)
+
+    checkout(user, cart)
+
+    captured = capsys.readouterr()
+    assert "Thank you for your purchase, Robin!" in captured.out
+    assert user.wallet == 60.0  
+    assert len(cart.items) == 0  
+
+def test_checkout_all_instances_of_product():
+    user = MockUser("Robin", 100.0)
+    cart = MockShoppingCart()
+    product = MockProduct("Computer", 20.0, 3)
+    
+    cart.add_item(product)
+    cart.add_item(product)
+    cart.add_item(product)
+
+    with pytest.raises(ValueError) as err_str:
+        checkout(user, cart)
+    assert "list.remove(x): x not in list" in str(err_str.value)
+    
+def test_checkout_user_invalid():
+    user = "Robin"
+    cart = MockShoppingCart()
+    product = MockProduct("Computer", 20.0, 3)
+    
+    cart.add_item(product)
+
+    with pytest.raises(AttributeError) as err_str:
+        checkout(user, cart)
+    assert "'str' object has no attribute 'wallet'" in str(err_str.value)
+    
+def test_checkout_product_invalid():
+    user = MockUser("Robin", 100.0)
+    cart = MockShoppingCart()
+    product = MockProduct("Computer", 20.0, 1.5)
+    
+    cart.add_item(product)
+    cart.add_item(product)
+    
+    with pytest.raises(ValueError) as err_str:
+       checkout(user, cart)
+    assert "list.remove(x): x not in list" in str(err_str.value)
+    
+def test_checkout_cart_invalid():
+    user = MockUser("Robin", 100.0)
+    cart = "cart"
+    
+    with pytest.raises(AttributeError) as err_str:
+       checkout(user, cart)
+    assert "'str' object has no attribute 'items'" in str(err_str.value)
+
 
 

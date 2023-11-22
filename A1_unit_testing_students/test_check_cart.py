@@ -111,4 +111,30 @@ def test_check_cart_with_no_items(capsys):
         check_cart(user, cart)
         captured = capsys.readouterr()
         assert "Your basket is empty. Please add items before checking out." in captured.out
+
+def test_check_cart_with_unvalid_user(): 
+    user = "Helga",
+    cart = MockShoppingCart()
+    product1 = MockProduct("Computer", 50.0, 2)
+    product2 = MockProduct("Laptop", 20.0, 3)
+    product3 = MockProduct("Desktop", 60.0, 3)
+    cart.add_item(product1)
+    cart.add_item(product2)
+    cart.add_item(product3)
+    
+    with patch("builtins.input", side_effect=["y"]):
+        with pytest.raises(AttributeError) as err_str:
+            check_cart(user, cart)
+        assert "'tuple' object has no attribute 'wallet'" in str(err_str.value)
+    
+def test_check_cart_with_unvalid_cart(): 
+    user = MockUser("Helga", 500.0)
+    cart = "cart"
+    
+    with patch("builtins.input", side_effect=["y"]):
+        with pytest.raises(AttributeError) as err_str:
+            check_cart(user, cart)
+        assert "'str' object has no attribute 'retrieve_item'" in str(err_str.value)
+    
+     
         

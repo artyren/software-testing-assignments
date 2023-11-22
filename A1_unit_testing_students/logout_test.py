@@ -1,39 +1,88 @@
 from logout import *
+import pytest
 from unittest.mock import patch
+from checkout_and_payment import Product, ShoppingCart
 
 #Cart needs to be tested so correct message is sent if it isnt true
     #All types
 #Needs to check that correct event happens when empty
-#Needs to cehck that correct products get printed
+#Needs to check that correct products get printed
 
-#Mock
-# class Product:
-#     def __init__(self, name, price, units):
-#         self.name = name
-#         self.price = float(price)
-#         self.units = int(units)
+#Product(namn, pris, enheter)
+#Shoppingcart(Lista av produkter)
 
-# class ShoppingCart:
-#     def __init__(self):
-#         self.items = []
+def test_cart_empty():
+    cart = ShoppingCart()
+    assert logout(cart) == True
 
-#     # Method to add a product to the cart
-#     def add_item(self, product):
-#         self.items.append(product)
+def test_cart_string_input():
+    with pytest.raises(Exception) as e:
+        logout("cart")
 
-#     # Method to remove a product from the cart
-#     def remove_item(self, product):
-#         self.items.remove(product)
+def test_cart_int_input():
+    with pytest.raises(Exception) as e:
+        logout(1)
+def test_cart_float_input():
+    with pytest.raises(Exception) as e:
+        logout(0.1)
+def test_cart_list_input():
+    with pytest.raises(Exception) as e:
+        logout([ShoppingCart()])
 
-#     # Method to retrieve the items in the cart
-#     def retrieve_item(self):
-#         return self.items
+def test_cart_wrong_input():
+    with pytest.raises(Exception) as e:
+        logout((ShoppingCart(), ShoppingCart()))
 
-#     # Method to clear all items from the cart
-#     def clear_items(self):
-#         self.items = []
+def test_product_prints_and_exit(capsys):
+    cart = ShoppingCart()
+    cart.add_item(Product("Milk", 10, 2))
+    cart.add_item(Product("Eggs", 15, 4))
+    cart.add_item(Product("Chips", 30, 1))
+    with patch('builtins.input', return_value="Y"):
+        assert logout(cart) == True
+    captured = capsys.readouterr()
+    assert captured.out == "Your cart is not empty.You have following items\n['Milk', 10.0, 2]\n['Eggs', 15.0, 4]\n['Chips', 30.0, 1]\n"
 
-#     # Method to calculate the total price of items in the cart
-#     def get_total_price(self):
-#         return sum(item.price for item in self.items)
+def test_product_prints_and_stay(capsys):
+    cart = ShoppingCart()
+    cart.add_item(Product("Milk", 10, 2))
+    cart.add_item(Product("Bike", 1500, 1))
+    with patch('builtins.input', return_value="N"):
+        assert logout(cart) == False
+    captured = capsys.readouterr()
+    assert captured.out == "Your cart is not empty.You have following items\n['Milk', 10.0, 2]\n['Bike', 1500.0, 1]\n"
 
+def test_product_prints_and_stay(capsys):
+    cart = ShoppingCart()
+    cart.add_item(Product("Milk", 10, 2))
+    cart.add_item(Product("Bike", 1500, 1))
+    with patch('builtins.input', return_value="N"):
+        assert logout(cart) == False
+    captured = capsys.readouterr()
+    assert captured.out == "Your cart is not empty.You have following items\n['Milk', 10.0, 2]\n['Bike', 1500.0, 1]\n"
+
+def test_product_prints_and_wrong_input(capsys):
+    cart = ShoppingCart()
+    cart.add_item(Product("Milk", 10, 2))
+    with patch('builtins.input', return_value="kjasdlfjbalsd"):
+        assert logout(cart) == False
+    captured = capsys.readouterr()
+    assert captured.out == "Your cart is not empty.You have following items\n['Milk', 10.0, 2]\n"
+
+def test_cart_clear(capsys):
+    cart = ShoppingCart()
+    cart.add_item(Product("Milk", 10, 2))
+    with patch('builtins.input', return_value="Y"):
+        assert logout(cart) == True
+    captured = capsys.readouterr()
+    assert captured.out == "Your cart is not empty.You have following items\n['Milk', 10.0, 2]\n"
+    assert cart.items == []
+
+def test_cart_clear(capsys):
+    cart = ShoppingCart()
+    cart.add_item(Product("Milk", 10, 2))
+    with patch('builtins.input', return_value="Y"):
+        assert logout(cart) == True
+    captured = capsys.readouterr()
+    assert captured.out == "Your cart is not empty.You have following items\n['Milk', 10.0, 2]\n"
+    assert cart.items == []

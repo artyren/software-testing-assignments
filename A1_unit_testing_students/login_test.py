@@ -39,7 +39,6 @@ def test_convo_route3(capsys):
     with patch('builtins.input', side_effect=["Phoenix", "Firebir&^d987"]):
         assert login() == {"username": "Phoenix", "wallet": 120 }
     captured = capsys.readouterr()
-    print(captured.out)
     assert captured.out == "Successfully logged in\n"
     assert json_file == get_json("users_original.json")
 
@@ -60,12 +59,11 @@ def test_convo_route5(capsys):
     with patch('builtins.input', side_effect=route_strings):
         assert login() == None
     captured = capsys.readouterr()
-    print(captured.out)
     assert captured.out == "Answer in wrong format, try again\nHave a nice day!\n"
     assert json_file == get_json("users_original.json")
 
 def test_pass_length():
-    assert pass_check("") == False
+    assert pass_check("G#") == False
     assert pass_check("GGGHJ#") == False
 
 def test_pass_symbol():
@@ -82,10 +80,14 @@ def test_pass_correct():
     assert pass_check("%AmericanNonjaWarrior%") == True
     assert pass_check("Wooooohaaaaa#") == True
 
-def test_pass_arg():
+def test_pass_arg_int():
     with pytest.raises(TypeError) as e:
         pass_check(1)
+
+def test_pass_arg_float():
     with pytest.raises(TypeError) as e:
         pass_check(0.1)
+
+def test_pass_arg_list():
     with pytest.raises(TypeError) as e:
         pass_check(["pass"])

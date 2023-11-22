@@ -30,7 +30,7 @@ class MockShoppingCart:
     def __init__(self):
         self.items = []
         
-         # Method to add a product to the cart
+    # Method to add a product to the cart
     def add_item(self, product):
         self.items.append(product)
         
@@ -86,6 +86,22 @@ def test_successful_checkout(capsys):
     captured = capsys.readouterr()
     assert "Thank you for your purchase, Robin!" in captured.out
     assert user.wallet == 80.0  
+    assert len(cart.items) == 0  
+
+def test_successful_checkout_several_products(capsys):
+    user = MockUser("Robin", 100.0)
+    cart = MockShoppingCart()
+    product1 = MockProduct("Computer", 20.0, 3)
+    product2 = MockProduct("Desktop", 60.0, 3)
+    
+    cart.add_item(product1)
+    cart.add_item(product2)
+
+    checkout(user, cart)
+
+    captured = capsys.readouterr()
+    assert "Thank you for your purchase, Robin!" in captured.out
+    assert user.wallet == 20.0  
     assert len(cart.items) == 0  
 
 

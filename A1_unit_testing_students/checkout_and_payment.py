@@ -44,7 +44,7 @@ class ShoppingCart:
         return sum(item.price for item in self.items)
 
 # Function to load products from a CSV file
-def load_products_from_csv(file_path): #TODO TEST CASES 
+def load_products_from_csv(file_path): 
     products = []
     with open(file_path, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
@@ -53,7 +53,7 @@ def load_products_from_csv(file_path): #TODO TEST CASES
     return products
 
 # Load products from the CSV file
-products = load_products_from_csv('/Users/sofiaalfsson/Documents/plugg/IT4/softwaretesting/software-testing-assignments/A1_unit_testing_students/products.csv') 
+products = load_products_from_csv("products.csv") 
 
 cart = ShoppingCart()
 

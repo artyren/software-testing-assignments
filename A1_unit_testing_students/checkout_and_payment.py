@@ -58,7 +58,7 @@ products = load_products_from_csv("products.csv")
 cart = ShoppingCart()
 
 # Function to complete the checkout process
-def checkout(user, cart): #TODO TEST CASES 
+def checkout(user, cart): 
     if not cart.items:
         print("\nYour basket is empty. Please add items before checking out.")
         return

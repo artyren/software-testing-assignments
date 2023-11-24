@@ -42,6 +42,7 @@ def test_logout_no_checkout(capsys):
     captured = capsys.readouterr()
     assert "added to your cart" not in captured.out
     assert "You have been logged out" in captured.out
+    data = get_json("users.json")
     assert data == get_json("users_backup.json")
 
 
@@ -55,6 +56,7 @@ def test_invalid_option(capsys):
 
     captured = capsys.readouterr()
     assert "Invalid input. Please try again." in captured.out
+    data = get_json("users.json")
     assert data == get_json("users_backup.json")
 
 
@@ -71,6 +73,7 @@ def test_success_one_item_checkout(capsys):
     captured = capsys.readouterr()
     assert "Blender added to your cart." in captured.out
     assert "Thank you for your purchase, Oliver! Your remaining balance is 30.0" in captured.out
+    data = get_json("users.json")
     assert data != get_json("users_backup.json")
     for entry in data:
         if entry["username"] == "Oliver":
@@ -93,10 +96,11 @@ def test_success_multiple_item_checkout(capsys):
     assert "Blender added to your cart." in captured.out
     assert "Gloves added to your cart." in captured.out
     assert "Thank you for your purchase, Oliver! Your remaining balance is 25.0" in captured.out
+    data = get_json("users.json")
     assert data != get_json("users_backup.json")
     for entry in data:
         if entry["username"] == "Oliver":
-            assert entry["wallet"] == 25
+           assert entry["wallet"] == 25
     rollback_json()
 
 
@@ -113,6 +117,7 @@ def test_out_of_stock(capsys):
     captured = capsys.readouterr()
     assert "Blender added to your cart." in captured.out
     assert "Sorry, Blender is out of stock." in captured.out
+    data = get_json("users.json")
     assert data != get_json("users_backup.json")
     for entry in data:
         if entry["username"] == "Oliver":
@@ -130,6 +135,7 @@ def test_invalid_product_selection(capsys):
 
     captured = capsys.readouterr()
     assert "Invalid input. Please try again." in captured.out
+    data = get_json("users.json")
     assert data == get_json("users_backup.json")
 
 
@@ -143,6 +149,7 @@ def test_empty_cart_checkout(capsys):
 
     captured = capsys.readouterr()
     assert "Your basket is empty. Please add items before checking out." in captured.out
+    data = get_json("users.json")
     assert data == get_json("users_backup.json")
 
 
@@ -156,6 +163,7 @@ def test_logout_with_leftover_cart(capsys):
 
     captured = capsys.readouterr()
     assert "Your cart is not empty.You have following items" in captured.out
+    data = get_json("users.json")
     assert data == get_json("users_backup.json")
     rollback_json()
 
@@ -170,6 +178,7 @@ def test_deny_checkout(capsys):
 
     captured = capsys.readouterr()
     assert "Your cart is not empty.You have following items" in captured.out
+    data = get_json("users.json")
     assert data == get_json("users_backup.json")
     rollback_json()
 
@@ -188,6 +197,7 @@ def test_cancel_logout_forgotten_checkout(capsys):
     assert "Blender added to your cart." in captured.out
     assert "Your cart is not empty.You have following items" in captured.out
     assert "Thank you for your purchase, Oliver! Your remaining balance is 30.0" in captured.out
+    data = get_json("users.json")
     assert data != get_json("users_backup.json")
     for entry in data:
         if entry["username"] == "Oliver":
@@ -207,10 +217,10 @@ def test_insufficient_funds(capsys):
     captured = capsys.readouterr()
     assert "Laptop added to your cart." in captured.out
     assert "You don't have enough money to complete the purchase.\nPlease try again!" in captured.out
+    data = get_json("users.json")
     assert data == get_json("users_backup.json")
 
 
-# TODO broken idk why :(
 # Test 14
 def test_wallet_update(capsys):
     data = get_json("users.json")
@@ -223,6 +233,7 @@ def test_wallet_update(capsys):
 
     captured = capsys.readouterr()
     assert "Thank you for your purchase, Oliver! Your remaining balance is 58.0" in captured.out
+    data = get_json("users.json")
     assert data != get_json("users_backup.json")
     for entry in data:
         if entry["username"] == "Oliver":
@@ -235,6 +246,7 @@ def test_wallet_update(capsys):
 
     captured = capsys.readouterr()
     assert "Thank you for your purchase, Oliver! Your remaining balance is 56.0" in captured.out
+    data = get_json("users.json")
     assert data != get_json("users_backup.json")
     for entry in data:
         if entry["username"] == "Oliver":
@@ -242,8 +254,6 @@ def test_wallet_update(capsys):
 
     rollback_json()
 
-
-# TODO FIX TEST PASSES AND FAILS ALTERNATIVELY
 # Test 15
 def test_multiple_users_with_different_carts(capsys):
     data = get_json("users.json")
@@ -261,6 +271,7 @@ def test_multiple_users_with_different_carts(capsys):
     captured = capsys.readouterr()
     assert "Thank you for your purchase, Oliver! Your remaining balance is 58.0" in captured.out
     assert "Thank you for your purchase, Athena! Your remaining balance is 96.0" in captured.out
+    data = get_json("users.json")
     assert data != get_json("users_backup.json")
     for entry in data:
         if entry["username"] == "Oliver":
@@ -284,6 +295,7 @@ def test_insufficient_funds_after_spending_all(capsys):
     captured = capsys.readouterr()
     assert "Thank you for your purchase, Oliver! Your remaining balance is 0.0" in captured.out
     assert "You don't have enough money to complete the purchase.\nPlease try again!" in captured.out
+    data = get_json("users.json")
     assert data != get_json("users_backup.json")
     for entry in data:
         if entry["username"] == "Oliver":
@@ -304,6 +316,7 @@ def test_deny_logout_and_no_checkout(capsys):
     captured = capsys.readouterr()
     assert "Apple added to your cart."
     assert captured.out.count("Your cart is not empty.You have following items") == 2
+    data = get_json("users.json")
     assert data == get_json("users_backup.json")
 
 
@@ -320,6 +333,7 @@ def test_checkout_invalid_yesno_confirm(capsys):
     assert "Apple added to your cart."
     # assert "Invalid input. Please try again." in captured.out ## Instead of reasking it is treated as no
     assert "Your cart is not empty.You have following items" in captured.out
+    data = get_json("users.json")
     assert data == get_json("users_backup.json")
 
 
@@ -336,6 +350,7 @@ def test_login_invalid_yesno_confirm(capsys):
     assert "Apple added to your cart."
     # assert "Invalid input. Please try again." in captured.out ## Instead of reasking it is treated as no
     assert captured.out.count("Your cart is not empty.You have following items") == 2
+    data = get_json("users.json")
     assert data == get_json("users_backup.json")
 
 
@@ -351,6 +366,7 @@ def test_negative_wallet(capsys):
     captured = capsys.readouterr()
     assert "Apple added to your cart." in captured.out
     assert "You don't have enough money to complete the purchase.\nPlease try again!" in captured.out
+    data = get_json("users.json")
     assert data == get_json("users_backup.json")
 
 

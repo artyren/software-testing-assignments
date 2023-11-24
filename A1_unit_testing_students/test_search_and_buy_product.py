@@ -88,16 +88,16 @@ def test_search_and_buy_product_empty_checkout(capsys):
 
 #Test 8: right item was added to cart, choosing item 70 from the print chooses item 70 from the csv file
 def test_search_and_buy_product_correct_item(copy_csv_file, capsys):
-    row_70_csv = None
+    row_55_csv = None
     i = 0
     for row in open("copy_products.csv"): 
-        if i == 70:
-            row_70_csv = row
+        if i == 55:
+            row_55_csv = row
         i+=1
     
-    product_at_row_70 = row_70_csv.strip().split(',')[0]
+    product_at_row_55 = row_55_csv.strip().split(',')[0]
     
-    with patch('builtins.input', side_effect=["Luna", "Moonlight#456", 'all', 'y', '70']):
+    with patch('builtins.input', side_effect=["Luna", "Moonlight#456", 'all', 'y', '55']):
         with pytest.raises(StopIteration):
             searchAndBuyProduct()
     captured = capsys.readouterr()
@@ -107,23 +107,23 @@ def test_search_and_buy_product_correct_item(copy_csv_file, capsys):
     for line in lines:
         if 'added to your cart' in line:
             relevant_line = line
-    assert relevant_line == f"{product_at_row_70} added to your cart."
+    assert relevant_line == f"{product_at_row_55} added to your cart."
     with patch('builtins.input', side_effect=["Luna", "Moonlight#456", 'all', 'y',  "l", 'y']):
         searchAndBuyProduct()
 
 
 #Test 9: successful checkout
 def test_search_and_buy_product_successful_checkout(capsys):
-    with patch('builtins.input', side_effect=["Luna", "Moonlight#456", 'all', 'y', '70', 'c','y']):
+    with patch('builtins.input', side_effect=["Luna", "Moonlight#456", 'all', 'y', '54', 'c','y']):
         with pytest.raises(StopIteration):
             searchAndBuyProduct()
     captured = capsys.readouterr()
-    assert "Thank you for your purchase, Luna! Your remaining balance is 89.5" in captured.out
+    assert "Thank you for your purchase, Luna! Your remaining balance is 60.0" in captured.out
 
 
 # Test 10: Insufficient balance
 def test_search_and_buy_product_insufficient_balance(capsys):
-    with patch('builtins.input', side_effect=["Luna", "Moonlight#456", 'all', 'y', '55', 'c','y']):
+    with patch('builtins.input', side_effect=["Luna", "Moonlight#456", 'all', 'y', '54', 'c','y']):
         with pytest.raises(StopIteration):
             searchAndBuyProduct()
     captured = capsys.readouterr()

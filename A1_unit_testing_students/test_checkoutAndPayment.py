@@ -210,6 +210,7 @@ def test_insufficient_funds(capsys):
     assert data == get_json("users_backup.json")
 
 
+# TODO broken idk why :(
 # Test 14
 def test_wallet_update(capsys):
     data = get_json("users.json")

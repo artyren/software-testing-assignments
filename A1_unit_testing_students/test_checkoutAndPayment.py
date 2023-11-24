@@ -59,15 +59,13 @@ def test_invalid_option(capsys):
     data = get_json("users.json")
     assert data == get_json("users_backup.json")
 
-
-# TODO FIX TEST PASSES AND FAILS ALTERNATIVELY
 # Test 5
 def test_success_one_item_checkout(capsys):
     data = get_json("users.json")
     login_info = {"username": "Oliver", "wallet": 60}
 
     # Test item: #59. Blender = 30$
-    with patch('builtins.input', side_effect=["59", "c", "y", "l"]):
+    with patch('builtins.input', side_effect=["59", "c", "y", "l", "y"]):
         checkoutAndPayment(login_info)
 
     captured = capsys.readouterr()
@@ -89,13 +87,14 @@ def test_success_multiple_item_checkout(capsys):
 
     # Test item: #59. Blender = 30$
     # Test item: #67. Gloves  =  5$
-    with patch('builtins.input', side_effect=["59", "67", "c", "y", "l"]):
+    with patch('builtins.input', side_effect=["59", "67", "c", "y", "l","y"]):
         checkoutAndPayment(login_info)
 
     captured = capsys.readouterr()
     assert "Blender added to your cart." in captured.out
     assert "Gloves added to your cart." in captured.out
     assert "Thank you for your purchase, Oliver! Your remaining balance is 25.0" in captured.out
+    assert "\nYou have been logged out\n" in captured.out
     data = get_json("users.json")
     assert data != get_json("users_backup.json")
     for entry in data:
@@ -111,7 +110,7 @@ def test_out_of_stock(capsys):
     data = get_json("users.json")
     login_info = {"username": "Oliver", "wallet": 60}
 
-    with patch('builtins.input', side_effect=["59", "59", "c", "y", "l"]):
+    with patch('builtins.input', side_effect=["59", "59", "c", "y", "l","y"]):
         checkoutAndPayment(login_info)
 
     captured = capsys.readouterr()
@@ -144,7 +143,7 @@ def test_empty_cart_checkout(capsys):
     data = get_json("users.json")
     login_info = {"username": "Oliver", "wallet": 60}
 
-    with patch('builtins.input', side_effect=["c", "y", "l"]):
+    with patch('builtins.input', side_effect=["c", "y", "l","y"]):
         checkoutAndPayment(login_info)
 
     captured = capsys.readouterr()
@@ -190,7 +189,7 @@ def test_cancel_logout_forgotten_checkout(capsys):
     login_info = {"username": "Oliver", "wallet": 60}
 
     # Test item: #59. Blender = 30$
-    with patch('builtins.input', side_effect=["59", "l", "n", "c", "y", "l"]):
+    with patch('builtins.input', side_effect=["59", "l", "n", "c", "y", "l","y"]):
         checkoutAndPayment(login_info)
 
     captured = capsys.readouterr()

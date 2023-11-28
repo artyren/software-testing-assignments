@@ -79,27 +79,26 @@ def test_success_one_item_checkout(capsys):
     rollback_json()
 
 
-# TODO FIX TEST PASSES AND FAILS ALTERNATIVELY
 # Test 6
-# def test_success_multiple_item_checkout(capsys):
-#     data = get_json("users.json")
-#     login_info = {"username": "Oliver", "wallet": 60}
+def test_success_multiple_item_checkout(capsys):
+    data = get_json("users.json")
+    login_info = {"username": "Oliver", "wallet": 60}
 
-#     # Test item: #59. Vaccuum Cleaner = 30$
-#     # Test item: #67. Gloves  =  5$
-#     with patch('builtins.input', side_effect=["59", "67", "c", "y", "l","y"]):
-#         checkoutAndPayment(login_info)
+    # Test item: #59. Vaccuum Cleaner = 30$
+    # Test item: #67. Gloves  =  5$
+    with patch('builtins.input', side_effect=["59", "67", "c", "y", "l","y"]):
+        checkoutAndPayment(login_info)
 
-#     captured = capsys.readouterr()
-#     assert "Vaccum Cleaner added to your cart." in captured.out
-#     assert "Umbrella added to your cart." in captured.out
-#     assert "Thank you for your purchase, Oliver! Your remaining balance is 25.0" in captured.out
-#     data = get_json("users.json")
-#     assert data != get_json("users_backup.json")
-#     for entry in data:
-#         if entry["username"] == "Oliver":
-#            assert entry["wallet"] == 25
-#     rollback_json()
+    captured = capsys.readouterr()
+    assert "Blender added to your cart." in captured.out
+    assert "Gloves added to your cart." in captured.out
+    assert "Thank you for your purchase, Oliver! Your remaining balance is 25.0" in captured.out
+    data = get_json("users.json")
+    assert data != get_json("users_backup.json")
+    for entry in data:
+        if entry["username"] == "Oliver":
+           assert entry["wallet"] == 25
+    rollback_json()
 
 
 # TODO bug: when ordering, you can infinitely add items to your cart
@@ -181,27 +180,26 @@ def test_deny_checkout(capsys):
     rollback_json()
 
 
-# TODO FIX TEST PASSES AND FAILS ALTERNATIVELY
 # Test 12
-# def test_cancel_logout_forgotten_checkout(capsys):
-#     data = get_json("users.json")
-#     login_info = {"username": "Oliver", "wallet": 60}
+def test_cancel_logout_forgotten_checkout(capsys):
+    data = get_json("users.json")
+    login_info = {"username": "Oliver", "wallet": 60}
 
-#     # Test item: #58. Blender = 30$
-#     with patch('builtins.input', side_effect=["58", "l", "n", "c", "y", "l","y"]):
-#         checkoutAndPayment(login_info)
+    # Test item: #58. Blender = 30$
+    with patch('builtins.input', side_effect=["59", "l", "n", "c", "y", "l","y"]):
+        checkoutAndPayment(login_info)
 
-#     captured = capsys.readouterr()
-#     print(captured.out)
-#     assert "Blender added to your cart." in captured.out
-#     assert "Your cart is not empty.You have following items" in captured.out
-#     assert "Thank you for your purchase, Oliver! Your remaining balance is 30.0" in captured.out
-#     data = get_json("users.json")
-#     assert data != get_json("users_backup.json")
-#     for entry in data:
-#         if entry["username"] == "Oliver":
-#             assert entry["wallet"] == 30
-#     rollback_json()
+    captured = capsys.readouterr()
+    print(captured.out)
+    assert "Blender added to your cart." in captured.out
+    assert "Your cart is not empty.You have following items" in captured.out
+    assert "Thank you for your purchase, Oliver! Your remaining balance is 30.0" in captured.out
+    data = get_json("users.json")
+    assert data != get_json("users_backup.json")
+    for entry in data:
+        if entry["username"] == "Oliver":
+            assert entry["wallet"] == 30
+    rollback_json()
 
 
 # Test 13
@@ -280,26 +278,25 @@ def test_multiple_users_with_different_carts(capsys):
     rollback_json()
 
 
-# TODO FIX TEST PASSES AND FAILS ALTERNATIVELY
 # Test 16
-# def test_insufficient_funds_after_spending_all(capsys):
-#     data = get_json("users.json")
-#     login_info = {"username": "Oliver", "wallet": 60}
+def test_insufficient_funds_after_spending_all(capsys):
+    data = get_json("users.json")
+    login_info = {"username": "Oliver", "wallet": 60}
 
-#     # Test item: #63. Running shoes = 60$
-#     # Test item: #1. Apple = 2$
-#     with patch('builtins.input', side_effect=["63", "c", "y", "1", "c", "y", "l", "y"]):
-#         checkoutAndPayment(login_info)
+    # Test item: #63. Running shoes = 60$
+    # Test item: #1. Apple = 2$
+    with patch('builtins.input', side_effect=["63", "c", "y", "1", "c", "y", "l", "y"]):
+        checkoutAndPayment(login_info)
 
-#     captured = capsys.readouterr()
-#     assert "Thank you for your purchase, Oliver! Your remaining balance is 0.0" in captured.out
-#     assert "You don't have enough money to complete the purchase.\nPlease try again!" in captured.out
-#     data = get_json("users.json")
-#     assert data == get_json("users_backup.json")
-#     for entry in data:
-#         if entry["username"] == "Oliver":
-#             assert entry["wallet"] == 0
-#     rollback_json()
+    captured = capsys.readouterr()
+    assert "Thank you for your purchase, Oliver! Your remaining balance is 0.0" in captured.out
+    assert "You don't have enough money to complete the purchase.\nPlease try again!" in captured.out
+    data = get_json("users.json")
+    assert data != get_json("users_backup.json")
+    for entry in data:
+        if entry["username"] == "Oliver":
+            assert entry["wallet"] == 0
+    rollback_json()
 
 
 

@@ -48,6 +48,16 @@ class MockUser:
     def __init__(self, name, wallet):
         self.name = name
         self.wallet = float(wallet)
+        self.cards = []
+    
+    # method to add a card to the user's list of cards 
+    def add_card(self, card_name, card_balance):
+        card = {"name": card_name, "balance": float(card_balance)}
+        self.cards.append(card)
+        
+    # Method to retrieve the list of user's cards
+    def get_cards(self):
+        return self.cards
 
 class MockProduct:
     def __init__(self, name, price, units):
@@ -565,11 +575,57 @@ def test_invalid_product_selection(capsys):
     assert data == get_json("users_backup.json")
 
 ### WALLET OR CARD IMPLEMENTATION TEST FUNCTIONS ###
-def test_pay_with_wallet_card_implemented():
-    return 0
+def test_pay_with_wallet_card_implemented(capsys):
+    user = MockUser("Robin", 100.0)
+    cart = MockShoppingCart()
+    product = MockProduct("CheapComputer", 20.0, 2)
+    
+    cart.add_item(product)
 
-def test_pay_with_card():
-    return 0
+    with patch("builtins.input", side_effect=["w"]):
+        result = checkout(user, cart)
+        captured = capsys.readouterr()
+        assert "Thank you for your purchase, Robin!" in captured.out
+        assert user.wallet == 80.0  
+        assert len(cart.items) == 0  
+    assert result is None 
 
-def test_pay_with_card_several_cards():
-    return 0
+def test_pay_with_card(capsys):
+    user = MockUser("Robin", 100.0)
+    user.add_card("MasterVisa", 120.0)
+    cart = MockShoppingCart()
+    product = MockProduct("CheapComputer", 20.0, 2)
+    
+    cart.add_item(product)
+
+    with patch("builtins.input", side_effect=["c", "1"]):
+        result = checkout(user, cart)
+        captured = capsys.readouterr()
+        assert "\nSelect a card:" in captured.out
+        assert "Thank you for your purchase, Robin!" in captured.out
+        assert user.wallet == 100.0 
+        assert user.cards[0]['balance'] == 100.0   
+        assert len(cart.items) == 0  
+    assert result is None 
+
+def test_pay_with_card_several_cards(capsys):
+    user = MockUser("Robin", 100.0)
+    user.add_card("MasterVisa", 120.0)
+    user.add_card("VisaMaster", 140.0)
+    user.add_card("CardElite", 1000.0)
+    cart = MockShoppingCart()
+    product = MockProduct("CheapComputer", 20.0, 2)
+    
+    cart.add_item(product)
+
+    with patch("builtins.input", side_effect=["c", "3"]):
+        result = checkout(user, cart)
+        captured = capsys.readouterr()
+        assert "\nSelect a card:" in captured.out
+        assert "Thank you for your purchase, Robin!" in captured.out
+        assert user.wallet == 100.0  
+        assert user.cards[0]['balance'] == 120.0 
+        assert user.cards[1]['balance'] == 140.0 
+        assert user.cards[2]['balance'] == 980.0    
+        assert len(cart.items) == 0  
+    assert result is None 

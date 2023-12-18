@@ -114,7 +114,23 @@ def update_wallet(user):
         json.dump(data, file, indent=4)
         file.truncate()
 
-
+def remove_item_from_cart():
+    num = 1
+    cart_items = cart.retrieve_item()
+    for i in cart_items:
+        print(str(num) + ". " + i.get_product()[0])
+        num += 1
+    item = input("Which item do you want to remove? (Write its number)")
+    if item.isnumeric():
+        int_choice = int(item)
+        if int_choice > 0 and int_choice <= len(cart_items):
+            print(cart_items[int_choice-1].name + " has been removed.")
+            cart.remove_item(cart_items[int_choice-1])
+        else:
+            print("Choice out of range.")
+    else:
+        print("Choice is not a numeric one.")
+            
 
 # Main function for the shopping and checkout process
 def checkoutAndPayment(login_info):
@@ -127,13 +143,15 @@ def checkoutAndPayment(login_info):
     while True:
         
         # Get user input for product selection in numbers
-        choice = input("\nEnter the product number you want to add to your cart (c to check cart, l to logout): ")
+        choice = input("\nEnter the product number you want to add to your cart (c to check cart, r to remove items, l to logout): ")
         
         if choice == 'c':
              # Check the cart and proceed to checkout if requested
             check = check_cart(user, cart)
             if check is False:
                 continue
+        elif choice == 'r':
+            remove_item_from_cart()
         elif choice == 'l':
             # Logout the user
             ask_logout = logout(cart)

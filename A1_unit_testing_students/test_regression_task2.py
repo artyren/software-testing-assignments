@@ -1,5 +1,5 @@
 import pytest
-from checkout_and_payment import *
+from checkout_and_payment_card_impl import *
 from login import *
 from logout import *
 from unittest.mock import patch

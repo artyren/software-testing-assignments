@@ -1,0 +1,284 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.5, pytest-7.4.3, pluggy-1.3.0
+rootdir: /Users/sofiaalfsson/Documents/plugg/IT4/softwaretesting/software-testing-assignments/A1_unit_testing_students
+plugins: mock-3.12.0
+collected 46 items
+
+test_regression_task2.py .......................FF.F..FFFF.............  [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_check_cart_with_items __________________________
+
+    def test_check_cart_with_items():
+        user = MockUser("Helga", 100.0)
+        cart = MockShoppingCart()
+        product = MockProduct("Computer", 50.0, 2)
+        cart.add_item(product)
+    
+        with patch("builtins.input", side_effect=["y"]):
+>           check_cart_result = check_cart(user, cart)
+
+test_regression_task2.py:327: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+checkout_and_payment_card_impl.py:142: in check_cart
+    return checkout(user,cart)
+checkout_and_payment_card_impl.py:80: in checkout
+    question = input("Do you want to pay by card or wallet (W/C)?")
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py:1124: in __call__
+    return self._mock_call(*args, **kwargs)
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py:1128: in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <MagicMock name='input' id='4392626000'>
+args = ('Do you want to pay by card or wallet (W/C)?',), kwargs = {}
+effect = <list_iterator object at 0x105d1dc60>
+
+    def _execute_mock_call(self, /, *args, **kwargs):
+        # separate from _increment_mock_call so that awaited functions are
+        # executed separately from their call, also AsyncMock overrides this method
+    
+        effect = self.side_effect
+        if effect is not None:
+            if _is_exception(effect):
+                raise effect
+            elif not _callable(effect):
+>               result = next(effect)
+E               StopIteration
+
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py:1185: StopIteration
+----------------------------- Captured stdout call -----------------------------
+['Computer', 50.0, 2]
+_____________________ test_check_cart_with_multiple_items ______________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x105e9ca10>
+
+    def test_check_cart_with_multiple_items(capsys):
+        user = MockUser("Helga", 600.0)
+        cart = MockShoppingCart()
+        product1 = MockProduct("Computer", 50.0, 2)
+        product2 = MockProduct("Laptop", 20.0, 3)
+        product3 = MockProduct("Desktop", 60.0, 3)
+        cart.add_item(product1)
+        cart.add_item(product2)
+        cart.add_item(product3)
+    
+        with patch("builtins.input", side_effect=["y"]):
+>           check_cart_result = check_cart(user, cart)
+
+test_regression_task2.py:342: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+checkout_and_payment_card_impl.py:142: in check_cart
+    return checkout(user,cart)
+checkout_and_payment_card_impl.py:80: in checkout
+    question = input("Do you want to pay by card or wallet (W/C)?")
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py:1124: in __call__
+    return self._mock_call(*args, **kwargs)
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py:1128: in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <MagicMock name='input' id='4394177104'>
+args = ('Do you want to pay by card or wallet (W/C)?',), kwargs = {}
+effect = <list_iterator object at 0x105d8a380>
+
+    def _execute_mock_call(self, /, *args, **kwargs):
+        # separate from _increment_mock_call so that awaited functions are
+        # executed separately from their call, also AsyncMock overrides this method
+    
+        effect = self.side_effect
+        if effect is not None:
+            if _is_exception(effect):
+                raise effect
+            elif not _callable(effect):
+>               result = next(effect)
+E               StopIteration
+
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py:1185: StopIteration
+----------------------------- Captured stdout call -----------------------------
+['Computer', 50.0, 2]
+['Laptop', 20.0, 3]
+['Desktop', 60.0, 3]
+___________________ test_check_cart_with_insufficient_funds ____________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x105ddef90>
+
+    def test_check_cart_with_insufficient_funds(capsys):
+        user = MockUser("Helga", 100.0)
+        cart = MockShoppingCart()
+        product1 = MockProduct("Computer", 50.0, 2)
+        product2 = MockProduct("Laptop", 20.0, 3)
+        product3 = MockProduct("Desktop", 60.0, 3)
+        cart.add_item(product1)
+        cart.add_item(product2)
+        cart.add_item(product3)
+    
+        with patch("builtins.input", side_effect=["y"]):
+>           check_cart_result = check_cart(user, cart)
+
+test_regression_task2.py:370: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+checkout_and_payment_card_impl.py:142: in check_cart
+    return checkout(user,cart)
+checkout_and_payment_card_impl.py:80: in checkout
+    question = input("Do you want to pay by card or wallet (W/C)?")
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py:1124: in __call__
+    return self._mock_call(*args, **kwargs)
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py:1128: in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <MagicMock name='input' id='4393399440'>
+args = ('Do you want to pay by card or wallet (W/C)?',), kwargs = {}
+effect = <list_iterator object at 0x105d8b730>
+
+    def _execute_mock_call(self, /, *args, **kwargs):
+        # separate from _increment_mock_call so that awaited functions are
+        # executed separately from their call, also AsyncMock overrides this method
+    
+        effect = self.side_effect
+        if effect is not None:
+            if _is_exception(effect):
+                raise effect
+            elif not _callable(effect):
+>               result = next(effect)
+E               StopIteration
+
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py:1185: StopIteration
+----------------------------- Captured stdout call -----------------------------
+['Computer', 50.0, 2]
+['Laptop', 20.0, 3]
+['Desktop', 60.0, 3]
+___________________________ test_insufficient_funds ____________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x105e999d0>
+
+    def test_insufficient_funds(capsys):
+        user = MockUser("Helga", 50.0)
+        cart = MockShoppingCart()
+        product = MockProduct("CheapDesktop", 60.0, 1)
+    
+        cart.add_item(product)
+    
+>       checkout(user, cart)
+
+test_regression_task2.py:406: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+checkout_and_payment_card_impl.py:80: in checkout
+    question = input("Do you want to pay by card or wallet (W/C)?")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_pytest.capture.DontReadFromInput object at 0x105cb8090>, size = -1
+
+    def read(self, size: int = -1) -> str:
+>       raise OSError(
+            "pytest: reading from stdin while output is captured!  Consider using `-s`."
+        )
+E       OSError: pytest: reading from stdin while output is captured!  Consider using `-s`.
+
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/_pytest/capture.py:202: OSError
+----------------------------- Captured stdout call -----------------------------
+Do you want to pay by card or wallet (W/C)?
+___________________ test_insufficient_funds_several_products ___________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x1062b42d0>
+
+    def test_insufficient_funds_several_products(capsys):
+        user = MockUser("Helga", 50.0)
+        cart = MockShoppingCart()
+        product1 = MockProduct("Computer", 20.0, 3)
+        product2 = MockProduct("Desktop", 60.0, 3)
+    
+        cart.add_item(product1)
+        cart.add_item(product2)
+    
+>       checkout(user, cart)
+
+test_regression_task2.py:421: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+checkout_and_payment_card_impl.py:80: in checkout
+    question = input("Do you want to pay by card or wallet (W/C)?")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_pytest.capture.DontReadFromInput object at 0x105cb8090>, size = -1
+
+    def read(self, size: int = -1) -> str:
+>       raise OSError(
+            "pytest: reading from stdin while output is captured!  Consider using `-s`."
+        )
+E       OSError: pytest: reading from stdin while output is captured!  Consider using `-s`.
+
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/_pytest/capture.py:202: OSError
+----------------------------- Captured stdout call -----------------------------
+Do you want to pay by card or wallet (W/C)?
+___________________________ test_successful_checkout ___________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x105ea03d0>
+
+    def test_successful_checkout(capsys):
+        user = MockUser("Robin", 100.0)
+        cart = MockShoppingCart()
+        product = MockProduct("CheapComputer", 20.0, 2)
+    
+        cart.add_item(product)
+    
+>       checkout(user, cart)
+
+test_regression_task2.py:434: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+checkout_and_payment_card_impl.py:80: in checkout
+    question = input("Do you want to pay by card or wallet (W/C)?")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_pytest.capture.DontReadFromInput object at 0x105cb8090>, size = -1
+
+    def read(self, size: int = -1) -> str:
+>       raise OSError(
+            "pytest: reading from stdin while output is captured!  Consider using `-s`."
+        )
+E       OSError: pytest: reading from stdin while output is captured!  Consider using `-s`.
+
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/_pytest/capture.py:202: OSError
+----------------------------- Captured stdout call -----------------------------
+Do you want to pay by card or wallet (W/C)?
+__________________ test_successful_checkout_several_products ___________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x105f8bb50>
+
+    def test_successful_checkout_several_products(capsys):
+        user = MockUser("Robin", 100.0)
+        cart = MockShoppingCart()
+        product1 = MockProduct("Computer", 20.0, 3)
+        product2 = MockProduct("Desktop", 60.0, 3)
+    
+        cart.add_item(product1)
+        cart.add_item(product2)
+    
+>       checkout(user, cart)
+
+test_regression_task2.py:451: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+checkout_and_payment_card_impl.py:80: in checkout
+    question = input("Do you want to pay by card or wallet (W/C)?")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_pytest.capture.DontReadFromInput object at 0x105cb8090>, size = -1
+
+    def read(self, size: int = -1) -> str:
+>       raise OSError(
+            "pytest: reading from stdin while output is captured!  Consider using `-s`."
+        )
+E       OSError: pytest: reading from stdin while output is captured!  Consider using `-s`.
+
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/_pytest/capture.py:202: OSError
+----------------------------- Captured stdout call -----------------------------
+Do you want to pay by card or wallet (W/C)?
+=========================== short test summary info ============================
+FAILED test_regression_task2.py::test_check_cart_with_items - StopIteration
+FAILED test_regression_task2.py::test_check_cart_with_multiple_items - StopIt...
+FAILED test_regression_task2.py::test_check_cart_with_insufficient_funds - St...
+FAILED test_regression_task2.py::test_insufficient_funds - OSError: pytest: r...
+FAILED test_regression_task2.py::test_insufficient_funds_several_products - O...
+FAILED test_regression_task2.py::test_successful_checkout - OSError: pytest: ...
+FAILED test_regression_task2.py::test_successful_checkout_several_products - ...
+========================= 7 failed, 39 passed in 0.20s =========================

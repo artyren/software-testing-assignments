@@ -1,0 +1,55 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.5, pytest-7.4.3, pluggy-1.3.0
+rootdir: /Users/sofiaalfsson/Documents/plugg/IT4/softwaretesting/software-testing-assignments/A1_unit_testing_students
+plugins: mock-3.12.0
+collected 46 items
+
+test_regression_task2.py ............................................FF  [100%]
+
+=================================== FAILURES ===================================
+______________________________ test_pay_with_card ______________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x102707050>
+
+    def test_pay_with_card(capsys):
+        user = MockUser("Robin", 100.0)
+        user.add_card("MasterVisa", 120.0)
+        cart = MockShoppingCart()
+        product = MockProduct("CheapComputer", 20.0, 2)
+    
+        cart.add_item(product)
+    
+        with patch("builtins.input", side_effect=["c", "1"]):
+            result = checkout(user, cart)
+            captured = capsys.readouterr()
+>           assert "\nSelect a card:" in captured.out
+E           AssertionError: assert '\nSelect a card:' in '\n\nThank you for your purchase, Robin! Your remaining balance is 80.0\n'
+E            +  where '\n\nThank you for your purchase, Robin! Your remaining balance is 80.0\n' = CaptureResult(out='\n\nThank you for your purchase, Robin! Your remaining balance is 80.0\n', err='').out
+
+test_regression_task2.py:604: AssertionError
+_______________________ test_pay_with_card_several_cards _______________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x102704550>
+
+    def test_pay_with_card_several_cards(capsys):
+        user = MockUser("Robin", 100.0)
+        user.add_card("MasterVisa", 120.0)
+        user.add_card("VisaMaster", 140.0)
+        user.add_card("CardElite", 1000.0)
+        cart = MockShoppingCart()
+        product = MockProduct("CheapComputer", 20.0, 2)
+    
+        cart.add_item(product)
+    
+        with patch("builtins.input", side_effect=["c", "3"]):
+            result = checkout(user, cart)
+            captured = capsys.readouterr()
+>           assert "\nSelect a card:" in captured.out
+E           AssertionError: assert '\nSelect a card:' in '\n\nThank you for your purchase, Robin! Your remaining balance is 80.0\n'
+E            +  where '\n\nThank you for your purchase, Robin! Your remaining balance is 80.0\n' = CaptureResult(out='\n\nThank you for your purchase, Robin! Your remaining balance is 80.0\n', err='').out
+
+test_regression_task2.py:624: AssertionError
+=========================== short test summary info ============================
+FAILED test_regression_task2.py::test_pay_with_card - AssertionError: assert ...
+FAILED test_regression_task2.py::test_pay_with_card_several_cards - Assertion...
+========================= 2 failed, 44 passed in 0.05s =========================

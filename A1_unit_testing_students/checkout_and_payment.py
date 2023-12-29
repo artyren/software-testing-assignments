@@ -1,6 +1,7 @@
 import csv
 import json
 
+from user import *
 from logout import logout
 
 #User class to represent user information
@@ -115,7 +116,6 @@ def update_wallet(user):
         file.truncate()
 
 
-
 # Main function for the shopping and checkout process
 def checkoutAndPayment(login_info):
     # Create/retrieve a user using login information
@@ -127,9 +127,10 @@ def checkoutAndPayment(login_info):
     while True:
         
         # Get user input for product selection in numbers
-        choice = input("\nEnter the product number you want to add to your cart (c to check cart, l to logout): ")
-        
-        if choice == 'c':
+        choice = input("\nEnter the product number you want to add to your cart (c to check cart, l to logout, e to edit personal information): ")
+        if choice == 'e':
+            edit_user_info(user)
+        elif choice == 'c':
              # Check the cart and proceed to checkout if requested
             check = check_cart(user, cart)
             if check is False:

@@ -1,6 +1,7 @@
 import json
-
+from user import add_credit_card
 #Login as a user
+
 def login():
     username = input("Enter your username:")
     password = input("Enter your password:")
@@ -20,10 +21,33 @@ def login():
                 new_pass = ""
                 while not pass_check(new_pass):
                     new_pass = input("Password needs to: \nBe at least 8 characters\nHave a special character\nHave at least one upper case character\nEnter new password:")
-                data.append({"username": username, "password": new_pass, "wallet": 0 })
+                
+                
+                address = input('Enter your address: ')
+                phone = input('Enter your phone number: ')
+                email = input('Enter your email: ')
+                while True:
+                    add_card = input('Do you want to add a credit card? y/n')
+                    if add_card.lower() == 'y':
+                        credit_card = add_credit_card()
+                        break
+                    elif add_card.lower() == 'n':
+                        break
+                    else:
+                        ('Invalid choice.')
+                data.append({"username": username, 
+                             "password": new_pass, 
+                             "wallet": 0,
+                             "address": address,
+                             "phone": phone,
+                             "email": email,
+                             "credit_cards": [credit_card] if add_card.lower() == 'y' else []})
+                
+
                 file.seek(0)
-                json.dump(data, file, indent=10)
+                json.dump(data, file, indent=2)
                 file.truncate()
+                print('You were successfully registered!\n')
                 return None
             elif answer == "N" or answer == "n":
                 print("Have a nice day!")
@@ -45,5 +69,4 @@ def pass_check(password: str) -> bool:
             symbol_OK = True
         if char.isupper():
             case_OK = True
-            
     return case_OK and symbol_OK

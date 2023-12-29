@@ -1,0 +1,46 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.10.13, pytest-7.4.3, pluggy-1.3.0
+rootdir: /Users/natashapaunovic/Documents/IT/softwareTesting/softwaretestingrepo/A1_unit_testing_students
+plugins: anyio-3.6.2, regtest-1.5.1, mock-3.12.0
+collected 48 items
+
+regtest_natasha.py ...F............................................      [100%]
+
+=================================== FAILURES ===================================
+______________________________ test_convo_route4 _______________________________
+
+    def test_convo_route4():
+        route_strings = ["Fox", "fake", "Y", "T#st", "Testing#"]
+        with patch('builtins.input', side_effect=route_strings):
+>           assert login() == None
+
+regtest_natasha.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+login.py:26: in login
+    address = input('Enter your address: ')
+/opt/homebrew/Cellar/python@3.10/3.10.13/Frameworks/Python.framework/Versions/3.10/lib/python3.10/unittest/mock.py:1114: in __call__
+    return self._mock_call(*args, **kwargs)
+/opt/homebrew/Cellar/python@3.10/3.10.13/Frameworks/Python.framework/Versions/3.10/lib/python3.10/unittest/mock.py:1118: in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <MagicMock name='input' id='4394014448'>
+args = ('Enter your address: ',), kwargs = {}
+effect = <list_iterator object at 0x105e69810>
+
+    def _execute_mock_call(self, /, *args, **kwargs):
+        # separate from _increment_mock_call so that awaited functions are
+        # executed separately from their call, also AsyncMock overrides this method
+    
+        effect = self.side_effect
+        if effect is not None:
+            if _is_exception(effect):
+                raise effect
+            elif not _callable(effect):
+>               result = next(effect)
+E               StopIteration
+
+/opt/homebrew/Cellar/python@3.10/3.10.13/Frameworks/Python.framework/Versions/3.10/lib/python3.10/unittest/mock.py:1175: StopIteration
+=========================== short test summary info ============================
+FAILED regtest_natasha.py::test_convo_route4 - StopIteration
+========================= 1 failed, 47 passed in 0.14s =========================

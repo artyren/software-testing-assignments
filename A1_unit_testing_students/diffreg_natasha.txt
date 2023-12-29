@@ -1,0 +1,105 @@
+7c7
+< regtest_natasha.py .............................................FFF      [100%]
+---
+> regtest_natasha.py ...F............................................      [100%]
+10c10
+< __________________________ test_new_implementation_1 ___________________________
+---
+> ______________________________ test_convo_route4 _______________________________
+12c12,15
+< capsys = <_pytest.capture.CaptureFixture object at 0x1060fded0>
+---
+>     def test_convo_route4():
+>         route_strings = ["Fox", "fake", "Y", "T#st", "Testing#"]
+>         with patch('builtins.input', side_effect=route_strings):
+> >           assert login() == None
+14,30c17,25
+<     def test_new_implementation_1(capsys):
+<         data = get_json("users.json")
+<         new_username = "NewUser" + str(len(data)+1)
+<         user_exists = False
+<         for user in data:
+<             if user["username"] == new_username:
+<                 user_exists = True
+<         assert user_exists == False
+<         with patch('builtins.input', side_effect=[new_username, "", 'y', 'Hejsan123!', 'uppsala 123', '1122331122', new_username+'@mail.com', 'n']):
+<             with pytest.raises(StopIteration):
+<                 searchAndBuyProduct()
+<         captured = capsys.readouterr()
+<         assert "You were successfully registered!" in captured.out
+<         data = get_json("users.json")
+<         assert data[-1]["username"] == new_username
+< >       assert data[-1]["address"] == 'uppsala 123'
+< E       KeyError: 'address'
+---
+> regtest_natasha.py:107: 
+> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+> login.py:26: in login
+>     address = input('Enter your address: ')
+> /opt/homebrew/Cellar/python@3.10/3.10.13/Frameworks/Python.framework/Versions/3.10/lib/python3.10/unittest/mock.py:1114: in __call__
+>     return self._mock_call(*args, **kwargs)
+> /opt/homebrew/Cellar/python@3.10/3.10.13/Frameworks/Python.framework/Versions/3.10/lib/python3.10/unittest/mock.py:1118: in _mock_call
+>     return self._execute_mock_call(*args, **kwargs)
+> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+32,33c27,29
+< regtest_natasha.py:560: KeyError
+< __________________________ test_new_implementation_2 ___________________________
+---
+> self = <MagicMock name='input' id='4394014448'>
+> args = ('Enter your address: ',), kwargs = {}
+> effect = <list_iterator object at 0x105e69810>
+35,43c31,41
+<     def test_new_implementation_2():
+<         data = get_json("users.json")
+<         new_username = "NewUser" + str(len(data)+1)
+<         with patch('builtins.input', side_effect=[new_username, "", 'y', 'Hejsan123!', 'uppsala 123', '1122331122', new_username+'@mail.com', 'y', '555-555-555-555', '12/12', new_username, '123' ]):
+<             with pytest.raises(StopIteration):
+<                 searchAndBuyProduct()
+<         data = get_json("users.json")
+< >       assert len(data[-1]["credit_cards"]) != 0
+< E       KeyError: 'credit_cards'
+---
+>     def _execute_mock_call(self, /, *args, **kwargs):
+>         # separate from _increment_mock_call so that awaited functions are
+>         # executed separately from their call, also AsyncMock overrides this method
+>     
+>         effect = self.side_effect
+>         if effect is not None:
+>             if _is_exception(effect):
+>                 raise effect
+>             elif not _callable(effect):
+> >               result = next(effect)
+> E               StopIteration
+45,66c43
+< regtest_natasha.py:575: KeyError
+< ----------------------------- Captured stdout call -----------------------------
+< You were successfully registered!
+< 
+< Answer in wrong format, try again
+< __________________________ test_new_implementation_3 ___________________________
+< 
+<     def test_new_implementation_3():
+<         data = get_json("users.json")
+<         new_username = "NewUser" + str(len(data)+1)
+<         with patch('builtins.input', side_effect=[new_username, "", 'y', 'Hejsan123!', 'uppsala 123', '1122331122', new_username+'@mail.com', 'y', '555-555-555-555', '12/12', new_username, '123' ]):
+<             with pytest.raises(StopIteration):
+<                 searchAndBuyProduct()
+<         data = get_json("users.json")
+< >       assert data[-1]["credit_cards"][0]['cvv'] == '123'
+< E       KeyError: 'credit_cards'
+< 
+< regtest_natasha.py:590: KeyError
+< ----------------------------- Captured stdout call -----------------------------
+< You were successfully registered!
+< 
+< Answer in wrong format, try again
+---
+> /opt/homebrew/Cellar/python@3.10/3.10.13/Frameworks/Python.framework/Versions/3.10/lib/python3.10/unittest/mock.py:1175: StopIteration
+68,71c45,46
+< FAILED regtest_natasha.py::test_new_implementation_1 - KeyError: 'address'
+< FAILED regtest_natasha.py::test_new_implementation_2 - KeyError: 'credit_cards'
+< FAILED regtest_natasha.py::test_new_implementation_3 - KeyError: 'credit_cards'
+< ========================= 3 failed, 45 passed in 0.10s =========================
+---
+> FAILED regtest_natasha.py::test_convo_route4 - StopIteration
+> ========================= 1 failed, 47 passed in 0.14s =========================

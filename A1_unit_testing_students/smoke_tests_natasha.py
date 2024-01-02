@@ -71,7 +71,7 @@ def test_smoke_2(capsys):
 
 
 
-#add new user with new fields, edit all fields of the card and chech its updated correctly, and add a new card
+#add new user with new fields, edit all fields of the card and check its updated correctly, and add a new card
 def test_smoke_3():
     data = get_json("users.json")
     new_username = "NewUser" + str(len(data)+1)
@@ -94,7 +94,7 @@ def test_smoke_3():
     rollback_json()
 
 
-#reg new user , add credit card, change address, email and phone number and check that its correct and log out
+#reg new user , add credit card, change address and check that its correct and log out
 def test_smoke_4():
     data = get_json("users.json")
     new_username = "NewUser" + str(len(data)+1)
@@ -102,16 +102,42 @@ def test_smoke_4():
         with pytest.raises(StopIteration):
             searchAndBuyProduct()
     data = get_json("users.json")
-    with patch('builtins.input', side_effect=[new_username, 'Hejsan123!', 'all', 'y', 'e', '1', 'new address', '2', '018-000000', '3', 'mail@mail.se', '5', 'l'  ]):
+    with patch('builtins.input', side_effect=[new_username, 'Hejsan123!', 'all', 'y', 'e', '1', 'new address', '5', 'l'  ]):
         searchAndBuyProduct()
     data = get_json("users.json")
     assert data[-1]['address'] == 'new address'
+    rollback_json()
+
+#reg new user , add credit card, change phone number and check that its correct and log out
+def test_smoke_5():
+    data = get_json("users.json")
+    new_username = "NewUser" + str(len(data)+1)
+    with patch('builtins.input', side_effect=[new_username, "", 'y', 'Hejsan123!', 'uppsala 123', '1122331122', new_username+'@mail.com', 'n']):
+        with pytest.raises(StopIteration):
+            searchAndBuyProduct()
+    data = get_json("users.json")
+    with patch('builtins.input', side_effect=[new_username, 'Hejsan123!', 'all', 'y', 'e', '2', '018-000000', '5', 'l'  ]):
+        searchAndBuyProduct()
+    data = get_json("users.json")
     assert data[-1]['phone'] == '018-000000'
+    rollback_json()
+
+#reg new user , add credit card, change email and check that its correct and log out
+def test_smoke_6():
+    data = get_json("users.json")
+    new_username = "NewUser" + str(len(data)+1)
+    with patch('builtins.input', side_effect=[new_username, "", 'y', 'Hejsan123!', 'uppsala 123', '1122331122', new_username+'@mail.com', 'n']):
+        with pytest.raises(StopIteration):
+            searchAndBuyProduct()
+    data = get_json("users.json")
+    with patch('builtins.input', side_effect=[new_username, 'Hejsan123!', 'all', 'y', 'e', '3', 'mail@mail.se', '5', 'l'  ]):
+        searchAndBuyProduct()
+    data = get_json("users.json")
     assert data[-1]['email'] == 'mail@mail.se'
     rollback_json()
 
 #test editing an invalid choice
-def test_smoke_5(capsys):
+def test_smoke_7(capsys):
     data = get_json("users.json")
     with patch('builtins.input', side_effect=['Ramanathan', "Notaproblem23*", 'all', 'y', 'e', 'asdnkjsdc', '5', 'l'  ]):
         searchAndBuyProduct()
@@ -121,7 +147,7 @@ def test_smoke_5(capsys):
 
 
 #reg new user and dont add card, edit info and add card and check it was added
-def test_smoke_6():
+def test_smoke_8():
     data = get_json("users.json")
     new_username = "NewUser" + str(len(data)+1)
     with patch('builtins.input', side_effect=[new_username, "", 'y', 'Hejsan123!', 'uppsala 123', '1122331122', new_username+'@mail.com', 'n']):
@@ -136,4 +162,49 @@ def test_smoke_6():
     assert data[-1]["credit_cards"][0]['name_on_card'] == 'name'
     assert data[-1]["credit_cards"][0]['expiry_date'] == '11/01'
     assert data[-1]["credit_cards"][0]['card_number'] == '1111-1111-1111-1111'
+    rollback_json()
+
+#reg new user, add card, add more cards and edit CVV on one of them and check it was correctly updated
+def test_smoke_9():
+    data = get_json("users.json")
+    new_username = "NewUser" + str(len(data)+1)
+    with patch('builtins.input', side_effect=[new_username, "", 'y', 'Hejsan123!', 'uppsala 123', '1122331122', new_username+'@mail.com', 'y', '555-555-555-555', '12/12', new_username, '123']):
+        with pytest.raises(StopIteration):
+            searchAndBuyProduct()
+    data = get_json("users.json")
+    assert data[-1]["credit_cards"][0]['cvv'] == '123'
+    with patch('builtins.input', side_effect=[new_username, 'Hejsan123!', 'all', 'y', 'e', '4', 'a', '2222-2222-2222-2222', '13/12', new_username, '321','a', '3333-3333-3333-3333', '11/12', new_username, '456', 'c', '5', 'l'    ]):
+        searchAndBuyProduct()
+    data = get_json("users.json")
+    assert len(data[-1]["credit_cards"]) == 3 #check that there are 3 cards
+    with patch('builtins.input', side_effect=[new_username, 'Hejsan123!', 'all', 'y', 'e', '4', '3', '4', '000', '5', 'l']):
+        searchAndBuyProduct()
+    data = get_json("users.json")
+    assert data[-1]["credit_cards"][2]['cvv'] == '000'
+    rollback_json()
+
+#reg new user, edit info but dont edit anything just save and exit, and check that everything is still the same
+def test_smoke_10(capsys):
+    data = get_json("users.json")
+    new_username = "NewUser" + str(len(data)+1)
+    with patch('builtins.input', side_effect=[new_username, "", 'y', 'Hejsan123!', 'uppsala 123', '1122331122', new_username+'@mail.com', 'n', new_username, 'Hejsan123!', 'all', 'y', 'l' ]):
+        searchAndBuyProduct()
+    captured = capsys.readouterr()
+    assert "You were successfully registered!" in captured.out
+    assert "Successfully logged in" in captured.out
+    assert "You have been logged out" in captured.out
+    data = get_json("users.json")
+    assert data[-1]["username"] == new_username
+    assert data[-1]["address"] == 'uppsala 123'
+    assert data[-1]["phone"] == '1122331122'
+    assert data[-1]["email"] == new_username+'@mail.com'
+    assert data[-1]["credit_cards"] == []
+    with patch('builtins.input', side_effect=[new_username,'Hejsan123!', 'all', 'y', 'e', '5', 'l' ]):
+        searchAndBuyProduct()
+        data = get_json("users.json")
+    assert data[-1]["username"] == new_username
+    assert data[-1]["address"] == 'uppsala 123'
+    assert data[-1]["phone"] == '1122331122'
+    assert data[-1]["email"] == new_username+'@mail.com'
+    assert data[-1]["credit_cards"] == []
     rollback_json()

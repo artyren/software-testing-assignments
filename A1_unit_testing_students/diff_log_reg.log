@@ -1,0 +1,467 @@
+7c7
+< test_reg_1.py .......................EE..............FFFF...F            [100%]
+---
+> test_reg_1.py FF.....................EE..............FFFF.FFF            [100%]
+32a33,72
+> ______________________________ test_convo_route1 ______________________________
+> 
+> capsys = <_pytest.capture.CaptureFixture object at 0x0000015998018750>
+> 
+>     def test_convo_route1(capsys):
+>         json_file = get_json("users.json")
+>         with patch('builtins.input', side_effect=["N", "N", "N"]):
+>             assert login() == None
+>         captured = capsys.readouterr()
+>         print(captured.out)
+>         assert captured.out == "Have a nice day!\n"
+> >       assert json_file == get_json("users_original.json")
+> E       AssertionError: assert [{'password':...et': 90}, ...] == [{'password':...et': 90}, ...]
+> E         At index 14 diff: {'username': 'Oliver', 'password': 'Oliver*123', 'wallet': 55} != {'username': 'Oliver', 'password': 'Oliver*123', 'wallet': 60}
+> E         Use -v to get more diff
+> 
+> test_reg_1.py:39: AssertionError
+> ---------------------------- Captured stdout call -----------------------------
+> Have a nice day!
+> 
+> ______________________________ test_convo_route2 ______________________________
+> 
+> capsys = <_pytest.capture.CaptureFixture object at 0x000001599801B790>
+> 
+>     def test_convo_route2(capsys):
+>         json_file = get_json("users.json")
+>         with patch('builtins.input', side_effect=["Phoenix", "wrong"]):
+>             assert login() == None
+>         captured = capsys.readouterr()
+>         print(captured.out)
+>         assert captured.out == "Either username or password were incorrect\n"
+> >       assert json_file == get_json("users_original.json")
+> E       AssertionError: assert [{'password':...et': 90}, ...] == [{'password':...et': 90}, ...]
+> E         At index 14 diff: {'username': 'Oliver', 'password': 'Oliver*123', 'wallet': 55} != {'username': 'Oliver', 'password': 'Oliver*123', 'wallet': 60}
+> E         Use -v to get more diff
+> 
+> test_reg_1.py:48: AssertionError
+> ---------------------------- Captured stdout call -----------------------------
+> Either username or password were incorrect
+> 
+35c75
+< capsys = <_pytest.capture.CaptureFixture object at 0x0000024E4D451890>
+---
+> capsys = <_pytest.capture.CaptureFixture object at 0x000001599800C950>
+49c89
+< capsys = <_pytest.capture.CaptureFixture object at 0x0000024E4D4072D0>
+---
+> capsys = <_pytest.capture.CaptureFixture object at 0x0000015998018DD0>
+67c107
+< capsys = <_pytest.capture.CaptureFixture object at 0x0000024E4D437CD0>
+---
+> capsys = <_pytest.capture.CaptureFixture object at 0x000001599816CA10>
+86c126
+< capsys = <_pytest.capture.CaptureFixture object at 0x0000024E4CF72010>
+---
+> capsys = <_pytest.capture.CaptureFixture object at 0x000001599817A8D0>
+185a226,472
+> ______________________________ test_remove_item _______________________________
+> 
+> capsys = <_pytest.capture.CaptureFixture object at 0x000001599818C450>
+> 
+>     def test_remove_item(capsys):
+>         data = get_json("users.json")
+>         login_info = {"username": "Oliver", "wallet": 60}
+>         pre_products = load_products_from_csv("products.csv")
+>     
+>         with patch('builtins.input', side_effect=["52", "r", "2", "r", "f", "r", "1", "l"]):
+> >           checkoutAndPayment(login_info)
+> 
+> test_reg_1.py:661: 
+> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+> checkout_and_payment.py:139: in checkoutAndPayment
+>     ask_logout = logout(cart)
+> logout.py:12: in logout
+>     logout_confirmation = input("Do you still want to logout? (Y/N): ").lower()
+> C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py:1124: in __call__
+>     return self._mock_call(*args, **kwargs)
+> C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py:1128: in _mock_call
+>     return self._execute_mock_call(*args, **kwargs)
+> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+> 
+> self = <MagicMock name='input' id='1484315481168'>
+> args = ('Do you still want to logout? (Y/N): ',), kwargs = {}
+> effect = <list_iterator object at 0x00000159980EF1F0>
+> 
+>     def _execute_mock_call(self, /, *args, **kwargs):
+>         # separate from _increment_mock_call so that awaited functions are
+>         # executed separately from their call, also AsyncMock overrides this method
+>     
+>         effect = self.side_effect
+>         if effect is not None:
+>             if _is_exception(effect):
+>                 raise effect
+>             elif not _callable(effect):
+> >               result = next(effect)
+> E               StopIteration
+> 
+> C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py:1185: StopIteration
+> ---------------------------- Captured stdout call -----------------------------
+> 1. Apple - $2.0 - Units: 8
+> 2. Banana - $1.0 - Units: 15
+> 3. Orange - $1.5 - Units: 8
+> 4. Grapes - $3.0 - Units: 5
+> 5. Strawberry - $4.0 - Units: 12
+> 6. Watermelon - $10.0 - Units: 1
+> 7. Carrot - $0.5 - Units: 20
+> 8. Broccoli - $1.5 - Units: 10
+> 9. Tomato - $1.0 - Units: 15
+> 10. Cucumber - $1.0 - Units: 12
+> 11. Potato - $0.75 - Units: 18
+> 12. Onion - $0.8 - Units: 20
+> 13. Bell Pepper - $1.2 - Units: 8
+> 14. Lettuce - $2.0 - Units: 5
+> 15. Spinach - $2.5 - Units: 7
+> 16. Milk - $3.0 - Units: 10
+> 17. Eggs - $2.0 - Units: 24
+> 18. Cheese - $5.0 - Units: 8
+> 19. Chicken Breast - $7.0 - Units: 4
+> 20. Salmon - $10.0 - Units: 2
+> 21. Ground Beef - $6.0 - Units: 5
+> 22. Pasta - $1.0 - Units: 15
+> 23. Rice - $1.5 - Units: 10
+> 24. Bread - $2.0 - Units: 8
+> 25. Butter - $3.0 - Units: 6
+> 26. Yogurt - $2.0 - Units: 12
+> 27. Ice Cream - $4.0 - Units: 6
+> 28. Chocolate - $2.5 - Units: 8
+> 29. Coffee - $5.0 - Units: 4
+> 30. Tea - $2.0 - Units: 10
+> 31. Soda - $1.5 - Units: 12
+> 32. Water - $1.0 - Units: 20
+> 33. Juice - $3.0 - Units: 8
+> 34. Chips - $2.5 - Units: 10
+> 35. Cookies - $3.0 - Units: 8
+> 36. Cereal - $2.0 - Units: 12
+> 37. Oatmeal - $1.5 - Units: 15
+> 38. Peanut Butter - $3.0 - Units: 6
+> 39. Jelly - $2.0 - Units: 8
+> 40. Toothpaste - $1.5 - Units: 10
+> 41. Shampoo - $2.0 - Units: 8
+> 42. Soap - $1.0 - Units: 12
+> 43. Toilet Paper - $0.75 - Units: 24
+> 44. Towel - $4.0 - Units: 6
+> 45. Laundry Detergent - $3.5 - Units: 8
+> 46. Dish Soap - $1.5 - Units: 12
+> 47. Broom - $5.0 - Units: 4
+> 48. Trash Bags - $2.0 - Units: 10
+> 49. Light Bulbs - $1.0 - Units: 15
+> 50. Batteries - $3.0 - Units: 6
+> 51. Phone Charger - $5.0 - Units: 4
+> 52. Laptop - $800.0 - Units: 1
+> 53. Headphones - $50.0 - Units: 1
+> 54. TV - $500.0 - Units: 1
+> 55. Microwave - $80.0 - Units: 1
+> 56. Coffee Maker - $40.0 - Units: 1
+> 57. Toaster - $20.0 - Units: 1
+> 58. Blender - $30.0 - Units: 1
+> 59. Vacuum Cleaner - $100.0 - Units: 1
+> 60. Dumbbells - $20.0 - Units: 2
+> 61. Yoga Mat - $15.0 - Units: 1
+> 62. Running Shoes - $60.0 - Units: 1
+> 63. Backpack - $25.0 - Units: 1
+> 64. Sunglasses - $10.0 - Units: 1
+> 65. Hat - $8.0 - Units: 1
+> 66. Gloves - $5.0 - Units: 1
+> 67. Umbrella - $7.0 - Units: 1
+> 68. Notebook - $2.0 - Units: 5
+> 69. Pens - $0.5 - Units: 10
+> 70. Backpack - $15.0 - Units: 1
+> Laptop added to your cart.
+> 
+> Invalid input. Please try again.
+> Banana added to your cart.
+> 
+> Invalid input. Please try again.
+> 
+> Invalid input. Please try again.
+> 
+> Invalid input. Please try again.
+> Apple added to your cart.
+> Your cart is not empty.You have following items
+> ['Laptop', 800.0, 1]
+> ['Banana', 1.0, 15]
+> ['Apple', 2.0, 8]
+> __________________________ test_remove_item_no_items __________________________
+> 
+> capsys = <_pytest.capture.CaptureFixture object at 0x00000159981E82D0>
+> 
+>     def test_remove_item_no_items(capsys):
+>         data = get_json("users.json")
+>         login_info = {"username": "Oliver", "wallet": 60}
+>         pre_products = load_products_from_csv("products.csv")
+>     
+>         with patch('builtins.input', side_effect=["r", "2", "l"]):
+> >           checkoutAndPayment(login_info)
+> 
+> test_reg_1.py:679: 
+> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+> checkout_and_payment.py:139: in checkoutAndPayment
+>     ask_logout = logout(cart)
+> logout.py:12: in logout
+>     logout_confirmation = input("Do you still want to logout? (Y/N): ").lower()
+> C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py:1124: in __call__
+>     return self._mock_call(*args, **kwargs)
+> C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py:1128: in _mock_call
+>     return self._execute_mock_call(*args, **kwargs)
+> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+> 
+> self = <MagicMock name='input' id='1484315816720'>
+> args = ('Do you still want to logout? (Y/N): ',), kwargs = {}
+> effect = <list_iterator object at 0x00000159980EFC70>
+> 
+>     def _execute_mock_call(self, /, *args, **kwargs):
+>         # separate from _increment_mock_call so that awaited functions are
+>         # executed separately from their call, also AsyncMock overrides this method
+>     
+>         effect = self.side_effect
+>         if effect is not None:
+>             if _is_exception(effect):
+>                 raise effect
+>             elif not _callable(effect):
+> >               result = next(effect)
+> E               StopIteration
+> 
+> C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py:1185: StopIteration
+> ---------------------------- Captured stdout call -----------------------------
+> 1. Apple - $2.0 - Units: 8
+> 2. Banana - $1.0 - Units: 15
+> 3. Orange - $1.5 - Units: 8
+> 4. Grapes - $3.0 - Units: 5
+> 5. Strawberry - $4.0 - Units: 12
+> 6. Watermelon - $10.0 - Units: 1
+> 7. Carrot - $0.5 - Units: 20
+> 8. Broccoli - $1.5 - Units: 10
+> 9. Tomato - $1.0 - Units: 15
+> 10. Cucumber - $1.0 - Units: 12
+> 11. Potato - $0.75 - Units: 18
+> 12. Onion - $0.8 - Units: 20
+> 13. Bell Pepper - $1.2 - Units: 8
+> 14. Lettuce - $2.0 - Units: 5
+> 15. Spinach - $2.5 - Units: 7
+> 16. Milk - $3.0 - Units: 10
+> 17. Eggs - $2.0 - Units: 24
+> 18. Cheese - $5.0 - Units: 8
+> 19. Chicken Breast - $7.0 - Units: 4
+> 20. Salmon - $10.0 - Units: 2
+> 21. Ground Beef - $6.0 - Units: 5
+> 22. Pasta - $1.0 - Units: 15
+> 23. Rice - $1.5 - Units: 10
+> 24. Bread - $2.0 - Units: 8
+> 25. Butter - $3.0 - Units: 6
+> 26. Yogurt - $2.0 - Units: 12
+> 27. Ice Cream - $4.0 - Units: 6
+> 28. Chocolate - $2.5 - Units: 8
+> 29. Coffee - $5.0 - Units: 4
+> 30. Tea - $2.0 - Units: 10
+> 31. Soda - $1.5 - Units: 12
+> 32. Water - $1.0 - Units: 20
+> 33. Juice - $3.0 - Units: 8
+> 34. Chips - $2.5 - Units: 10
+> 35. Cookies - $3.0 - Units: 8
+> 36. Cereal - $2.0 - Units: 12
+> 37. Oatmeal - $1.5 - Units: 15
+> 38. Peanut Butter - $3.0 - Units: 6
+> 39. Jelly - $2.0 - Units: 8
+> 40. Toothpaste - $1.5 - Units: 10
+> 41. Shampoo - $2.0 - Units: 8
+> 42. Soap - $1.0 - Units: 12
+> 43. Toilet Paper - $0.75 - Units: 24
+> 44. Towel - $4.0 - Units: 6
+> 45. Laundry Detergent - $3.5 - Units: 8
+> 46. Dish Soap - $1.5 - Units: 12
+> 47. Broom - $5.0 - Units: 4
+> 48. Trash Bags - $2.0 - Units: 10
+> 49. Light Bulbs - $1.0 - Units: 15
+> 50. Batteries - $3.0 - Units: 6
+> 51. Phone Charger - $5.0 - Units: 4
+> 52. Laptop - $800.0 - Units: 1
+> 53. Headphones - $50.0 - Units: 1
+> 54. TV - $500.0 - Units: 1
+> 55. Microwave - $80.0 - Units: 1
+> 56. Coffee Maker - $40.0 - Units: 1
+> 57. Toaster - $20.0 - Units: 1
+> 58. Blender - $30.0 - Units: 1
+> 59. Vacuum Cleaner - $100.0 - Units: 1
+> 60. Dumbbells - $20.0 - Units: 2
+> 61. Yoga Mat - $15.0 - Units: 1
+> 62. Running Shoes - $60.0 - Units: 1
+> 63. Backpack - $25.0 - Units: 1
+> 64. Sunglasses - $10.0 - Units: 1
+> 65. Hat - $8.0 - Units: 1
+> 66. Gloves - $5.0 - Units: 1
+> 67. Umbrella - $7.0 - Units: 1
+> 68. Notebook - $2.0 - Units: 5
+> 69. Pens - $0.5 - Units: 10
+> 70. Backpack - $15.0 - Units: 1
+> 
+> Invalid input. Please try again.
+> Banana added to your cart.
+> Your cart is not empty.You have following items
+> ['Laptop', 800.0, 1]
+> ['Banana', 1.0, 15]
+> ['Apple', 2.0, 8]
+> ['Banana', 1.0, 15]
+188c475
+< capsys = <_pytest.capture.CaptureFixture object at 0x0000024E4D4048D0>
+---
+> capsys = <_pytest.capture.CaptureFixture object at 0x0000015997B8A690>
+196c483,503
+<             checkoutAndPayment(login_info)
+---
+> >           checkoutAndPayment(login_info)
+> 
+> test_reg_1.py:695: 
+> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+> checkout_and_payment.py:139: in checkoutAndPayment
+>     ask_logout = logout(cart)
+> logout.py:12: in logout
+>     logout_confirmation = input("Do you still want to logout? (Y/N): ").lower()
+> C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py:1124: in __call__
+>     return self._mock_call(*args, **kwargs)
+> C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py:1128: in _mock_call
+>     return self._execute_mock_call(*args, **kwargs)
+> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+> 
+> self = <MagicMock name='input' id='1484311658064'>
+> args = ('Do you still want to logout? (Y/N): ',), kwargs = {}
+> effect = <list_iterator object at 0x000001599800B4F0>
+> 
+>     def _execute_mock_call(self, /, *args, **kwargs):
+>         # separate from _increment_mock_call so that awaited functions are
+>         # executed separately from their call, also AsyncMock overrides this method
+198,206c505,511
+<         captured = capsys.readouterr()
+<         assert "Phone Charger added to your cart." in captured.out
+<         assert "Phone Charger has been removed." in captured.out
+<         assert "Thank you for your purchase, Oliver! Your remaining balance is 55" in captured.out
+<         post_products = load_products_from_csv("products.csv")
+< >       assert pre_products[50].units != post_products[50].units
+< E       assert 4 != 4
+< E        +  where 4 = <checkout_and_payment.Product object at 0x0000024E4D570BD0>.units
+< E        +  and   4 = <checkout_and_payment.Product object at 0x0000024E4D450F90>.units
+---
+>         effect = self.side_effect
+>         if effect is not None:
+>             if _is_exception(effect):
+>                 raise effect
+>             elif not _callable(effect):
+> >               result = next(effect)
+> E               StopIteration
+208c513,608
+< test_reg_1.py:702: AssertionError
+---
+> C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py:1185: StopIteration
+> ---------------------------- Captured stdout call -----------------------------
+> 1. Apple - $2.0 - Units: 8
+> 2. Banana - $1.0 - Units: 15
+> 3. Orange - $1.5 - Units: 8
+> 4. Grapes - $3.0 - Units: 5
+> 5. Strawberry - $4.0 - Units: 12
+> 6. Watermelon - $10.0 - Units: 1
+> 7. Carrot - $0.5 - Units: 20
+> 8. Broccoli - $1.5 - Units: 10
+> 9. Tomato - $1.0 - Units: 15
+> 10. Cucumber - $1.0 - Units: 12
+> 11. Potato - $0.75 - Units: 18
+> 12. Onion - $0.8 - Units: 20
+> 13. Bell Pepper - $1.2 - Units: 8
+> 14. Lettuce - $2.0 - Units: 5
+> 15. Spinach - $2.5 - Units: 7
+> 16. Milk - $3.0 - Units: 10
+> 17. Eggs - $2.0 - Units: 24
+> 18. Cheese - $5.0 - Units: 8
+> 19. Chicken Breast - $7.0 - Units: 4
+> 20. Salmon - $10.0 - Units: 2
+> 21. Ground Beef - $6.0 - Units: 5
+> 22. Pasta - $1.0 - Units: 15
+> 23. Rice - $1.5 - Units: 10
+> 24. Bread - $2.0 - Units: 8
+> 25. Butter - $3.0 - Units: 6
+> 26. Yogurt - $2.0 - Units: 12
+> 27. Ice Cream - $4.0 - Units: 6
+> 28. Chocolate - $2.5 - Units: 8
+> 29. Coffee - $5.0 - Units: 4
+> 30. Tea - $2.0 - Units: 10
+> 31. Soda - $1.5 - Units: 12
+> 32. Water - $1.0 - Units: 20
+> 33. Juice - $3.0 - Units: 8
+> 34. Chips - $2.5 - Units: 10
+> 35. Cookies - $3.0 - Units: 8
+> 36. Cereal - $2.0 - Units: 12
+> 37. Oatmeal - $1.5 - Units: 15
+> 38. Peanut Butter - $3.0 - Units: 6
+> 39. Jelly - $2.0 - Units: 8
+> 40. Toothpaste - $1.5 - Units: 10
+> 41. Shampoo - $2.0 - Units: 8
+> 42. Soap - $1.0 - Units: 12
+> 43. Toilet Paper - $0.75 - Units: 24
+> 44. Towel - $4.0 - Units: 6
+> 45. Laundry Detergent - $3.5 - Units: 8
+> 46. Dish Soap - $1.5 - Units: 12
+> 47. Broom - $5.0 - Units: 4
+> 48. Trash Bags - $2.0 - Units: 10
+> 49. Light Bulbs - $1.0 - Units: 15
+> 50. Batteries - $3.0 - Units: 6
+> 51. Phone Charger - $5.0 - Units: 4
+> 52. Laptop - $800.0 - Units: 1
+> 53. Headphones - $50.0 - Units: 1
+> 54. TV - $500.0 - Units: 1
+> 55. Microwave - $80.0 - Units: 1
+> 56. Coffee Maker - $40.0 - Units: 1
+> 57. Toaster - $20.0 - Units: 1
+> 58. Blender - $30.0 - Units: 1
+> 59. Vacuum Cleaner - $100.0 - Units: 1
+> 60. Dumbbells - $20.0 - Units: 2
+> 61. Yoga Mat - $15.0 - Units: 1
+> 62. Running Shoes - $60.0 - Units: 1
+> 63. Backpack - $25.0 - Units: 1
+> 64. Sunglasses - $10.0 - Units: 1
+> 65. Hat - $8.0 - Units: 1
+> 66. Gloves - $5.0 - Units: 1
+> 67. Umbrella - $7.0 - Units: 1
+> 68. Notebook - $2.0 - Units: 5
+> 69. Pens - $0.5 - Units: 10
+> 70. Backpack - $15.0 - Units: 1
+> Phone Charger added to your cart.
+> Phone Charger added to your cart.
+> 
+> Invalid input. Please try again.
+> Banana added to your cart.
+> ['Laptop', 800.0, 1]
+> ['Banana', 1.0, 15]
+> ['Apple', 2.0, 8]
+> ['Banana', 1.0, 15]
+> ['Phone Charger', 5.0, 4]
+> ['Phone Charger', 5.0, 4]
+> ['Banana', 1.0, 15]
+> 
+> 
+> You don't have enough money to complete the purchase.
+> Please try again!
+> Your cart is not empty.You have following items
+> ['Laptop', 800.0, 1]
+> ['Banana', 1.0, 15]
+> ['Apple', 2.0, 8]
+> ['Banana', 1.0, 15]
+> ['Phone Charger', 5.0, 4]
+> ['Phone Charger', 5.0, 4]
+> ['Banana', 1.0, 15]
+209a610,611
+> FAILED test_reg_1.py::test_convo_route1 - AssertionError: assert [{'password'...
+> FAILED test_reg_1.py::test_convo_route2 - AssertionError: assert [{'password'...
+214c616,618
+< FAILED test_reg_1.py::test_remove_item_checkout - assert 4 != 4
+---
+> FAILED test_reg_1.py::test_remove_item - StopIteration
+> FAILED test_reg_1.py::test_remove_item_no_items - StopIteration
+> FAILED test_reg_1.py::test_remove_item_checkout - StopIteration
+217c621
+< =================== 5 failed, 40 passed, 2 errors in 0.34s ====================
+---
+> =================== 9 failed, 36 passed, 2 errors in 0.54s ====================

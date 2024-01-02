@@ -1,0 +1,130 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.7, pytest-7.4.4, pluggy-1.3.0
+rootdir: C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students
+plugins: regtest-1.5.1
+collected 10 items
+
+test_smoke_1.py .F...F..FF                                               [100%]
+
+================================== FAILURES ===================================
+_________________________ test_add_item_and_checkout __________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000022689CF3F50>
+
+    def test_add_item_and_checkout(capsys):
+        choices = []
+        choices.append("Oliver")
+        choices.append("Oliver*123")
+        choices.append("all")
+        choices.append("Y")
+        choices.append("3")
+        choices.append("c")
+        choices.append("Y")
+        choices.append("l")
+    
+        with patch('builtins.input', side_effect=choices):
+            searchAndBuyProduct()
+    
+        captured = capsys.readouterr()
+        user_json = get_json("users.json")
+        reset_json()
+        products = load_products_from_csv("products.csv")
+        reset_csv()
+>       assert {'password': "Oliver*123", 'username': "Oliver", 'wallet': 58.5} in user_json
+E       AssertionError: assert {'password': 'Oliver*123', 'username': 'Oliver', 'wallet': 58.5} in [{'password': 'Notaproblem23*', 'username': 'Ramanathan', 'wallet': 100}, {'password': 'SecurePass123/^', 'username': ...ir&^d987', 'username': 'Phoenix', 'wallet': 120}, {'password': 'Moonlight#456', 'username': 'Luna', 'wallet': 90}, ...]
+
+test_smoke_1.py:59: AssertionError
+______________________________ test_out_of_stock ______________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000022689CF2090>
+
+    def test_out_of_stock(capsys):
+        choices = []
+        choices.append("Oliver")
+        choices.append("Oliver*123")
+        choices.append("all")
+        choices.append("y")
+        choices.append("6")
+        choices.append("6")
+        choices.append("c")
+        choices.append("y")
+        choices.append("l")
+    
+        with patch('builtins.input', side_effect=choices):
+            searchAndBuyProduct()
+    
+        captured = capsys.readouterr()
+        user_json = get_json("users.json")
+        reset_json()
+        products = load_products_from_csv("products.csv")
+        reset_csv()
+>       assert {'password': "Oliver*123", 'username': "Oliver", 'wallet': 50} in user_json
+E       AssertionError: assert {'password': 'Oliver*123', 'username': 'Oliver', 'wallet': 50} in [{'password': 'Notaproblem23*', 'username': 'Ramanathan', 'wallet': 100}, {'password': 'SecurePass123/^', 'username': ...ir&^d987', 'username': 'Phoenix', 'wallet': 120}, {'password': 'Moonlight#456', 'username': 'Luna', 'wallet': 90}, ...]
+
+test_smoke_1.py:173: AssertionError
+____________________________ test_too_little_money ____________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000022689D020D0>
+
+    def test_too_little_money(capsys):
+        choices = []
+        choices.append("Oliver")
+        choices.append("Oliver*123")
+        choices.append("all")
+        choices.append("y")
+        choices.append("60")
+        choices.append("c")
+        choices.append("y")
+        choices.append("l")
+        choices.append("y")
+    
+        with patch('builtins.input', side_effect=choices):
+            searchAndBuyProduct()
+    
+        captured = capsys.readouterr()
+        reset_csv()
+        reset_json()
+>       assert "You don't have enough money to complete the purchase" in captured.out
+E       assert "You don't have enough money to complete the purchase" in "Successfully logged in\n['Product', 'Price', 'Units']\n['Apple', '2', '10']\n['Banana', '1', '15']\n['Orange', '1.5',...bbells', 20.0, 2]\n\n\nThank you for your purchase, Oliver! Your remaining balance is 40.0\nYou have been logged out\n"
+E        +  where "Successfully logged in\n['Product', 'Price', 'Units']\n['Apple', '2', '10']\n['Banana', '1', '15']\n['Orange', '1.5',...bbells', 20.0, 2]\n\n\nThank you for your purchase, Oliver! Your remaining balance is 40.0\nYou have been logged out\n" = CaptureResult(out="Successfully logged in\n['Product', 'Price', 'Units']\n['Apple', '2', '10']\n['Banana', '1', '15']\...20.0, 2]\n\n\nThank you for your purchase, Oliver! Your remaining balance is 40.0\nYou have been logged out\n", err='').out
+
+test_smoke_1.py:232: AssertionError
+________________________ test_too_little_money_remove _________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000022689D9A5D0>
+
+    def test_too_little_money_remove(capsys):
+        choices = []
+        choices.append("Oliver")
+        choices.append("Oliver*123")
+        choices.append("all")
+        choices.append("y")
+        choices.append("60")
+        choices.append("3")
+        choices.append("c")
+        choices.append("y")
+        choices.append("r")
+        choices.append("1")
+        choices.append("c")
+        choices.append("y")
+        choices.append("l")
+    
+        with patch('builtins.input', side_effect=choices):
+            searchAndBuyProduct()
+    
+        captured = capsys.readouterr()
+        products = load_products_from_csv("products.csv")
+        reset_csv()
+        users = get_json("users.json")
+        reset_json()
+>       assert "You don't have enough money to complete the purchase" in captured.out
+E       assert "You don't have enough money to complete the purchase" in "Successfully logged in\n['Product', 'Price', 'Units']\n['Apple', '2', '10']\n['Banana', '1', '15']\n['Orange', '1.5',... 38.5\nChoice out of range.\n\nYour basket is empty. Please add items before checking out.\nYou have been logged out\n"
+E        +  where "Successfully logged in\n['Product', 'Price', 'Units']\n['Apple', '2', '10']\n['Banana', '1', '15']\n['Orange', '1.5',... 38.5\nChoice out of range.\n\nYour basket is empty. Please add items before checking out.\nYou have been logged out\n" = CaptureResult(out="Successfully logged in\n['Product', 'Price', 'Units']\n['Apple', '2', '10']\n['Banana', '1', '15']\...oice out of range.\n\nYour basket is empty. Please add items before checking out.\nYou have been logged out\n", err='').out
+
+test_smoke_1.py:261: AssertionError
+=========================== short test summary info ===========================
+FAILED test_smoke_1.py::test_add_item_and_checkout - AssertionError: assert {...
+FAILED test_smoke_1.py::test_out_of_stock - AssertionError: assert {'password...
+FAILED test_smoke_1.py::test_too_little_money - assert "You don't have enough...
+FAILED test_smoke_1.py::test_too_little_money_remove - assert "You don't have...
+========================= 4 failed, 6 passed in 0.25s =========================

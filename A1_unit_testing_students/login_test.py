@@ -21,7 +21,6 @@ def test_convo_route1(capsys):
     with patch('builtins.input', side_effect=["N", "N", "N"]):
         assert login() == None
     captured = capsys.readouterr()
-    print(captured.out)
     assert captured.out == "Have a nice day!\n"
     assert json_file == get_json("users_original.json")
 
@@ -30,7 +29,6 @@ def test_convo_route2(capsys):
     with patch('builtins.input', side_effect=["Phoenix", "wrong"]):
         assert login() == None
     captured = capsys.readouterr()
-    print(captured.out)
     assert captured.out == "Either username or password were incorrect\n"
     assert json_file == get_json("users_original.json")
 

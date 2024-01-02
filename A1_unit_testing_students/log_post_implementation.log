@@ -1,0 +1,217 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.7, pytest-7.4.4, pluggy-1.3.0
+rootdir: C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students
+plugins: regtest-1.5.1
+collected 47 items
+
+test_reg_1.py .......................EE..............FFFF...F            [100%]
+
+=================================== ERRORS ====================================
+_________________ ERROR at setup of test_load_change_mock_csv _________________
+file C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students\test_reg_1.py, line 248
+  def test_load_change_mock_csv(mock_csv_float_error):
+file C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students\test_reg_1.py, line 222
+  @pytest.fixture
+  def mock_csv_float_error(mocker):
+E       fixture 'mocker' not found
+>       available fixtures: LineMatcher, _config_for_test, _pytest, _sys_snapshot, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, copy_csv_file, doctest_namespace, invalid_products_csv_key, linecomp, mock_csv, mock_csv_float_error, mock_csv_float_error2, monkeypatch, pytestconfig, pytester, record_property, record_testsuite_property, record_xml_attribute, recwarn, regtest, testdir, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students\test_reg_1.py:222
+____________ ERROR at setup of test_load_change_mock_csv_val_error ____________
+file C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students\test_reg_1.py, line 254
+  def test_load_change_mock_csv_val_error(mock_csv_float_error2):
+file C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students\test_reg_1.py, line 227
+  @pytest.fixture
+  def mock_csv_float_error2(mocker):
+E       fixture 'mocker' not found
+>       available fixtures: LineMatcher, _config_for_test, _pytest, _sys_snapshot, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, copy_csv_file, doctest_namespace, invalid_products_csv_key, linecomp, mock_csv, mock_csv_float_error, mock_csv_float_error2, monkeypatch, pytestconfig, pytester, record_property, record_testsuite_property, record_xml_attribute, recwarn, regtest, testdir, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students\test_reg_1.py:227
+================================== FAILURES ===================================
+______________ test_search_and_buy_product_insufficient_balance _______________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000024E4D451890>
+
+    def test_search_and_buy_product_insufficient_balance(capsys):
+        with patch('builtins.input', side_effect=["Luna", "Moonlight#456", 'all', 'y', '54', 'c','y']):
+            with pytest.raises(StopIteration):
+                searchAndBuyProduct()
+        captured = capsys.readouterr()
+>       assert "You don't have enough money to complete the purchase.\nPlease try again!" in captured.out
+E       assert "You don't have enough money to complete the purchase.\nPlease try again!" in "Successfully logged in\n['Product', 'Price', 'Units']\n['Apple', '2', '10']\n['Banana', '1', '15']\n['Orange', '1.5',...to your cart.\n['Bluetooth Speaker', 30.0, 1]\n\n\nThank you for your purchase, Luna! Your remaining balance is 60.0\n"
+E        +  where "Successfully logged in\n['Product', 'Price', 'Units']\n['Apple', '2', '10']\n['Banana', '1', '15']\n['Orange', '1.5',...to your cart.\n['Bluetooth Speaker', 30.0, 1]\n\n\nThank you for your purchase, Luna! Your remaining balance is 60.0\n" = CaptureResult(out="Successfully logged in\n['Product', 'Price', 'Units']\n['Apple', '2', '10']\n['Banana', '1', '15']\...art.\n['Bluetooth Speaker', 30.0, 1]\n\n\nThank you for your purchase, Luna! Your remaining balance is 60.0\n", err='').out
+
+test_reg_1.py:527: AssertionError
+_______________________ test_success_one_item_checkout ________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000024E4D4072D0>
+
+    def test_success_one_item_checkout(capsys):
+        data = get_json("users.json")
+        login_info = {"username": "Oliver", "wallet": 60}
+    
+        # Test item: #59. Blender = 30$
+        with patch('builtins.input', side_effect=["59", "c", "y", "l", "y"]):
+            checkoutAndPayment(login_info)
+    
+        captured = capsys.readouterr()
+>       assert "Blender added to your cart." in captured.out
+E       assert 'Blender added to your cart.' in "1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Grapes - $3.0 - Units: 5\n... try again!\nYour cart is not empty.You have following items\n['Vacuum Cleaner', 100.0, 1]\nYou have been logged out\n"
+E        +  where "1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Grapes - $3.0 - Units: 5\n... try again!\nYour cart is not empty.You have following items\n['Vacuum Cleaner', 100.0, 1]\nYou have been logged out\n" = CaptureResult(out="1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Grapes -...n!\nYour cart is not empty.You have following items\n['Vacuum Cleaner', 100.0, 1]\nYou have been logged out\n", err='').out
+
+test_reg_1.py:551: AssertionError
+_____________________ test_success_multiple_item_checkout _____________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000024E4D437CD0>
+
+    def test_success_multiple_item_checkout(capsys):
+        data = get_json("users.json")
+        login_info = {"username": "Oliver", "wallet": 60}
+    
+        # Test item: #59. Vaccuum Cleaner = 30$
+        # Test item: #67. Gloves  =  5$
+        with patch('builtins.input', side_effect=["59", "67", "c", "y", "l","y"]):
+            checkoutAndPayment(login_info)
+    
+        captured = capsys.readouterr()
+>       assert "Vaccuum Cleaner added to your cart." in captured.out
+E       assert 'Vaccuum Cleaner added to your cart.' in "1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Grapes - $3.0 - Units: 5\n... is not empty.You have following items\n['Vacuum Cleaner', 100.0, 1]\n['Umbrella', 7.0, 1]\nYou have been logged out\n"
+E        +  where "1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Grapes - $3.0 - Units: 5\n... is not empty.You have following items\n['Vacuum Cleaner', 100.0, 1]\n['Umbrella', 7.0, 1]\nYou have been logged out\n" = CaptureResult(out="1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Grapes -...mpty.You have following items\n['Vacuum Cleaner', 100.0, 1]\n['Umbrella', 7.0, 1]\nYou have been logged out\n", err='').out
+
+test_reg_1.py:572: AssertionError
+____________________ test_cancel_logout_forgotten_checkout ____________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000024E4CF72010>
+
+    def test_cancel_logout_forgotten_checkout(capsys):
+        data = get_json("users.json")
+        login_info = {"username": "Oliver", "wallet": 60}
+    
+        # Test item: #58. Blender = 30$
+        with patch('builtins.input', side_effect=["59", "l", "n", "c", "y", "l","y"]):
+            checkoutAndPayment(login_info)
+    
+        captured = capsys.readouterr()
+        print(captured.out)
+>       assert "Blender added to your cart." in captured.out
+E       assert 'Blender added to your cart.' in "1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Grapes - $3.0 - Units: 5\n... try again!\nYour cart is not empty.You have following items\n['Vacuum Cleaner', 100.0, 1]\nYou have been logged out\n"
+E        +  where "1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Grapes - $3.0 - Units: 5\n... try again!\nYour cart is not empty.You have following items\n['Vacuum Cleaner', 100.0, 1]\nYou have been logged out\n" = CaptureResult(out="1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Grapes -...n!\nYour cart is not empty.You have following items\n['Vacuum Cleaner', 100.0, 1]\nYou have been logged out\n", err='').out
+
+test_reg_1.py:593: AssertionError
+---------------------------- Captured stdout call -----------------------------
+1. Apple - $2.0 - Units: 10
+2. Banana - $1.0 - Units: 15
+3. Orange - $1.5 - Units: 8
+4. Grapes - $3.0 - Units: 5
+5. Strawberry - $4.0 - Units: 12
+6. Watermelon - $10.0 - Units: 1
+7. Carrot - $0.5 - Units: 20
+8. Broccoli - $1.5 - Units: 10
+9. Tomato - $1.0 - Units: 15
+10. Cucumber - $1.0 - Units: 12
+11. Potato - $0.75 - Units: 18
+12. Onion - $0.8 - Units: 20
+13. Bell Pepper - $1.2 - Units: 8
+14. Lettuce - $2.0 - Units: 5
+15. Spinach - $2.5 - Units: 7
+16. Milk - $3.0 - Units: 10
+17. Eggs - $2.0 - Units: 24
+18. Cheese - $5.0 - Units: 8
+19. Chicken Breast - $7.0 - Units: 4
+20. Salmon - $10.0 - Units: 2
+21. Ground Beef - $6.0 - Units: 5
+22. Pasta - $1.0 - Units: 15
+23. Rice - $1.5 - Units: 10
+24. Bread - $2.0 - Units: 8
+25. Butter - $3.0 - Units: 6
+26. Yogurt - $2.0 - Units: 12
+27. Ice Cream - $4.0 - Units: 6
+28. Chocolate - $2.5 - Units: 8
+29. Coffee - $5.0 - Units: 4
+30. Tea - $2.0 - Units: 10
+31. Soda - $1.5 - Units: 12
+32. Water - $1.0 - Units: 20
+33. Juice - $3.0 - Units: 8
+34. Chips - $2.5 - Units: 10
+35. Cookies - $3.0 - Units: 8
+36. Cereal - $2.0 - Units: 12
+37. Oatmeal - $1.5 - Units: 15
+38. Peanut Butter - $3.0 - Units: 6
+39. Jelly - $2.0 - Units: 8
+40. Toothpaste - $1.5 - Units: 10
+41. Shampoo - $2.0 - Units: 8
+42. Soap - $1.0 - Units: 12
+43. Toilet Paper - $0.75 - Units: 24
+44. Towel - $4.0 - Units: 6
+45. Laundry Detergent - $3.5 - Units: 8
+46. Dish Soap - $1.5 - Units: 12
+47. Broom - $5.0 - Units: 4
+48. Trash Bags - $2.0 - Units: 10
+49. Light Bulbs - $1.0 - Units: 15
+50. Batteries - $3.0 - Units: 6
+51. Phone Charger - $5.0 - Units: 4
+52. Laptop - $800.0 - Units: 1
+53. Headphones - $50.0 - Units: 1
+54. TV - $500.0 - Units: 1
+55. Microwave - $80.0 - Units: 1
+56. Coffee Maker - $40.0 - Units: 1
+57. Toaster - $20.0 - Units: 1
+58. Blender - $30.0 - Units: 1
+59. Vacuum Cleaner - $100.0 - Units: 1
+60. Dumbbells - $20.0 - Units: 2
+61. Yoga Mat - $15.0 - Units: 1
+62. Running Shoes - $60.0 - Units: 1
+63. Backpack - $25.0 - Units: 1
+64. Sunglasses - $10.0 - Units: 1
+65. Hat - $8.0 - Units: 1
+66. Gloves - $5.0 - Units: 1
+67. Umbrella - $7.0 - Units: 1
+68. Notebook - $2.0 - Units: 5
+69. Pens - $0.5 - Units: 10
+70. Backpack - $15.0 - Units: 1
+Vacuum Cleaner added to your cart.
+Your cart is not empty.You have following items
+['Vacuum Cleaner', 100.0, 1]
+['Vacuum Cleaner', 100.0, 1]
+
+
+You don't have enough money to complete the purchase.
+Please try again!
+Your cart is not empty.You have following items
+['Vacuum Cleaner', 100.0, 1]
+You have been logged out
+
+__________________________ test_remove_item_checkout __________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000024E4D4048D0>
+
+    def test_remove_item_checkout(capsys):
+        data = get_json("users.json")
+        login_info = {"username": "Oliver", "wallet": 60}
+        pre_products = load_products_from_csv("products.csv")
+    
+        with patch('builtins.input', side_effect=["51", "51", "r", "2", "c", "y", "l"]):
+            checkoutAndPayment(login_info)
+    
+        captured = capsys.readouterr()
+        assert "Phone Charger added to your cart." in captured.out
+        assert "Phone Charger has been removed." in captured.out
+        assert "Thank you for your purchase, Oliver! Your remaining balance is 55" in captured.out
+        post_products = load_products_from_csv("products.csv")
+>       assert pre_products[50].units != post_products[50].units
+E       assert 4 != 4
+E        +  where 4 = <checkout_and_payment.Product object at 0x0000024E4D570BD0>.units
+E        +  and   4 = <checkout_and_payment.Product object at 0x0000024E4D450F90>.units
+
+test_reg_1.py:702: AssertionError
+=========================== short test summary info ===========================
+FAILED test_reg_1.py::test_search_and_buy_product_insufficient_balance - asse...
+FAILED test_reg_1.py::test_success_one_item_checkout - assert 'Blender added ...
+FAILED test_reg_1.py::test_success_multiple_item_checkout - assert 'Vaccuum C...
+FAILED test_reg_1.py::test_cancel_logout_forgotten_checkout - assert 'Blender...
+FAILED test_reg_1.py::test_remove_item_checkout - assert 4 != 4
+ERROR test_reg_1.py::test_load_change_mock_csv
+ERROR test_reg_1.py::test_load_change_mock_csv_val_error
+=================== 5 failed, 40 passed, 2 errors in 0.34s ====================

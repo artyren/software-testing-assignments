@@ -1,0 +1,335 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.7, pytest-7.4.4, pluggy-1.3.0
+rootdir: C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students
+plugins: regtest-1.5.1
+collected 47 items
+
+test_reg_1.py FF.....................EE......F...FFFFFFFFFFFF            [100%]
+
+=================================== ERRORS ====================================
+_________________ ERROR at setup of test_load_change_mock_csv _________________
+file C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students\test_reg_1.py, line 248
+  def test_load_change_mock_csv(mock_csv_float_error):
+file C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students\test_reg_1.py, line 222
+  @pytest.fixture
+  def mock_csv_float_error(mocker):
+E       fixture 'mocker' not found
+>       available fixtures: LineMatcher, _config_for_test, _pytest, _sys_snapshot, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, copy_csv_file, doctest_namespace, invalid_products_csv_key, linecomp, mock_csv, mock_csv_float_error, mock_csv_float_error2, monkeypatch, pytestconfig, pytester, record_property, record_testsuite_property, record_xml_attribute, recwarn, regtest, testdir, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students\test_reg_1.py:222
+____________ ERROR at setup of test_load_change_mock_csv_val_error ____________
+file C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students\test_reg_1.py, line 254
+  def test_load_change_mock_csv_val_error(mock_csv_float_error2):
+file C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students\test_reg_1.py, line 227
+  @pytest.fixture
+  def mock_csv_float_error2(mocker):
+E       fixture 'mocker' not found
+>       available fixtures: LineMatcher, _config_for_test, _pytest, _sys_snapshot, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, copy_csv_file, doctest_namespace, invalid_products_csv_key, linecomp, mock_csv, mock_csv_float_error, mock_csv_float_error2, monkeypatch, pytestconfig, pytester, record_property, record_testsuite_property, record_xml_attribute, recwarn, regtest, testdir, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+C:\Users\Fox\Documents\Skola\software-testing-assignments\A1_unit_testing_students\test_reg_1.py:227
+================================== FAILURES ===================================
+______________________________ test_convo_route1 ______________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000013490218890>
+
+    def test_convo_route1(capsys):
+>       json_file = get_json("users.json")
+
+test_reg_1.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = 'users.json'
+
+    def get_json(path):
+>       with open(path, "r") as users:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+test_reg_1.py:536: FileNotFoundError
+______________________________ test_convo_route2 ______________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001348FC65B10>
+
+    def test_convo_route2(capsys):
+>       json_file = get_json("users.json")
+
+test_reg_1.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = 'users.json'
+
+    def get_json(path):
+>       with open(path, "r") as users:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+test_reg_1.py:536: FileNotFoundError
+___________________________ test_insufficient_funds ___________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x00000134902E4710>
+
+    def test_insufficient_funds(capsys):
+>       data = get_json("users.json")
+
+test_reg_1.py:606: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = 'users.json'
+
+    def get_json(path):
+>       with open(path, "r") as users:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+test_reg_1.py:536: FileNotFoundError
+______________________ test_search_and_buy_product_login ______________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x00000134902D51D0>
+
+    def test_search_and_buy_product_login(capsys):
+        with patch('builtins.input', side_effect=["Luna", "Moonlight#456"]):
+             with pytest.raises(StopIteration):
+>               searchAndBuyProduct()
+
+test_reg_1.py:490: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+products.py:35: in searchAndBuyProduct
+    login_info = login()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def login():
+        username = input("Enter your username:")
+        password = input("Enter your password:")
+        #Look for user in database
+>       with open('users.json', "r+") as file:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+login.py:8: FileNotFoundError
+___________________ test_search_and_buy_product_add_to_cart ___________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x00000134903A10D0>
+
+    def test_search_and_buy_product_add_to_cart(capsys):
+        with patch('builtins.input', side_effect=["Luna", "Moonlight#456", 'all', 'y', '71', 'c']):
+            with pytest.raises(StopIteration):
+>               searchAndBuyProduct()
+
+test_reg_1.py:499: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+products.py:35: in searchAndBuyProduct
+    login_info = login()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def login():
+        username = input("Enter your username:")
+        password = input("Enter your password:")
+        #Look for user in database
+>       with open('users.json', "r+") as file:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+login.py:8: FileNotFoundError
+_____________________ test_search_and_buy_product_logout ______________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001349028DF10>
+
+    def test_search_and_buy_product_logout(capsys):
+        with patch('builtins.input', side_effect=["Luna", "Moonlight#456", 'all', 'y', 'l']):
+>           searchAndBuyProduct()
+
+test_reg_1.py:508: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+products.py:35: in searchAndBuyProduct
+    login_info = login()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def login():
+        username = input("Enter your username:")
+        password = input("Enter your password:")
+        #Look for user in database
+>       with open('users.json', "r+") as file:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+login.py:8: FileNotFoundError
+_________________ test_search_and_buy_product_empty_checkout __________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001349021AB10>
+
+    def test_search_and_buy_product_empty_checkout(capsys):
+        with patch('builtins.input', side_effect=["Luna", "Moonlight#456", 'all', 'y', 'c', 'y']):
+            with pytest.raises(StopIteration):
+>               searchAndBuyProduct()
+
+test_reg_1.py:517: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+products.py:35: in searchAndBuyProduct
+    login_info = login()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def login():
+        username = input("Enter your username:")
+        password = input("Enter your password:")
+        #Look for user in database
+>       with open('users.json', "r+") as file:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+login.py:8: FileNotFoundError
+______________ test_search_and_buy_product_insufficient_balance _______________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000013490324C10>
+
+    def test_search_and_buy_product_insufficient_balance(capsys):
+        with patch('builtins.input', side_effect=["Luna", "Moonlight#456", 'all', 'y', '54', 'c','y']):
+            with pytest.raises(StopIteration):
+>               searchAndBuyProduct()
+
+test_reg_1.py:525: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+products.py:35: in searchAndBuyProduct
+    login_info = login()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def login():
+        username = input("Enter your username:")
+        password = input("Enter your password:")
+        #Look for user in database
+>       with open('users.json', "r+") as file:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+login.py:8: FileNotFoundError
+_______________________ test_success_one_item_checkout ________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001349031A010>
+
+    def test_success_one_item_checkout(capsys):
+>       data = get_json("users.json")
+
+test_reg_1.py:543: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = 'users.json'
+
+    def get_json(path):
+>       with open(path, "r") as users:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+test_reg_1.py:536: FileNotFoundError
+_____________________ test_success_multiple_item_checkout _____________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001349034FDD0>
+
+    def test_success_multiple_item_checkout(capsys):
+>       data = get_json("users.json")
+
+test_reg_1.py:563: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = 'users.json'
+
+    def get_json(path):
+>       with open(path, "r") as users:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+test_reg_1.py:536: FileNotFoundError
+____________________ test_cancel_logout_forgotten_checkout ____________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000013490394AD0>
+
+    def test_cancel_logout_forgotten_checkout(capsys):
+>       data = get_json("users.json")
+
+test_reg_1.py:584: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = 'users.json'
+
+    def get_json(path):
+>       with open(path, "r") as users:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+test_reg_1.py:536: FileNotFoundError
+_____________________________ test_wallet_update ______________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x00000134902DF710>
+
+    def test_wallet_update(capsys):
+>       data = get_json("users.json")
+
+test_reg_1.py:622: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = 'users.json'
+
+    def get_json(path):
+>       with open(path, "r") as users:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+test_reg_1.py:536: FileNotFoundError
+______________________________ test_remove_item _______________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x00000134902050D0>
+
+    def test_remove_item(capsys):
+>       data = get_json("users.json")
+
+test_reg_1.py:656: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = 'users.json'
+
+    def get_json(path):
+>       with open(path, "r") as users:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+test_reg_1.py:536: FileNotFoundError
+__________________________ test_remove_item_no_items __________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001349028CA90>
+
+    def test_remove_item_no_items(capsys):
+>       data = get_json("users.json")
+
+test_reg_1.py:674: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = 'users.json'
+
+    def get_json(path):
+>       with open(path, "r") as users:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+test_reg_1.py:536: FileNotFoundError
+__________________________ test_remove_item_checkout __________________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x00000134903651D0>
+
+    def test_remove_item_checkout(capsys):
+>       data = get_json("users.json")
+
+test_reg_1.py:690: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = 'users.json'
+
+    def get_json(path):
+>       with open(path, "r") as users:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'users.json'
+
+test_reg_1.py:536: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED test_reg_1.py::test_convo_route1 - FileNotFoundError: [Errno 2] No suc...
+FAILED test_reg_1.py::test_convo_route2 - FileNotFoundError: [Errno 2] No suc...
+FAILED test_reg_1.py::test_insufficient_funds - FileNotFoundError: [Errno 2] ...
+FAILED test_reg_1.py::test_search_and_buy_product_login - FileNotFoundError: ...
+FAILED test_reg_1.py::test_search_and_buy_product_add_to_cart - FileNotFoundE...
+FAILED test_reg_1.py::test_search_and_buy_product_logout - FileNotFoundError:...
+FAILED test_reg_1.py::test_search_and_buy_product_empty_checkout - FileNotFou...
+FAILED test_reg_1.py::test_search_and_buy_product_insufficient_balance - File...
+FAILED test_reg_1.py::test_success_one_item_checkout - FileNotFoundError: [Er...
+FAILED test_reg_1.py::test_success_multiple_item_checkout - FileNotFoundError...
+FAILED test_reg_1.py::test_cancel_logout_forgotten_checkout - FileNotFoundErr...
+FAILED test_reg_1.py::test_wallet_update - FileNotFoundError: [Errno 2] No su...
+FAILED test_reg_1.py::test_remove_item - FileNotFoundError: [Errno 2] No such...
+FAILED test_reg_1.py::test_remove_item_no_items - FileNotFoundError: [Errno 2...
+FAILED test_reg_1.py::test_remove_item_checkout - FileNotFoundError: [Errno 2...
+ERROR test_reg_1.py::test_load_change_mock_csv
+ERROR test_reg_1.py::test_load_change_mock_csv_val_error
+=================== 15 failed, 30 passed, 2 errors in 0.47s ===================

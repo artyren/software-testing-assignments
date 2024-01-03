@@ -1,18 +1,9 @@
-from checkout_and_payment import *
 from products import *
+from users_manager import *
+
 from unittest.mock import patch
 
-import pytest, os
-
-
-def rollback_json():
-    os.remove("users.json")
-    os.system('cp users_backup.json users.json')
-
-
-def get_json(path):
-    with open(path, "r") as users:
-        return json.load(users)
+import pytest
 
 
 # Test 1

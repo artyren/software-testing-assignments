@@ -16,9 +16,7 @@ def display_csv_as_table(csv_filename):
 
 # Stub for displaying filtered products
 def display_filtered_table(csv_filename, search):
-    pass
     # print version:
-    '''
     header = ['Product', 'Price', 'Units']
     product_data = {
         'apple': ['Apple', '2', '10'],
@@ -32,7 +30,7 @@ def display_filtered_table(csv_filename, search):
     if search_lower in product_data:
         print(product_data[search_lower])
     else: pass
-    '''
+
 
 # Stub for checkoutAndPayment (ignore since it's continuation of execution and last thing + not login)
 def checkoutAndPayment(login_info):

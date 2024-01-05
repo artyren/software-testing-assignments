@@ -1,0 +1,244 @@
+PS C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students> ls
+
+
+    Directorio: C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        27/12/2023     14:31                .idea
+d-----        27/12/2023     14:35                .pytest_cache
+d-----        27/12/2023     14:31                .vscode
+d-----        27/12/2023     23:58                htmlcov
+d-----        05/01/2024     11:32                __pycache__
+-a----        27/12/2023     23:58          53248 .coverage
+-a----        03/01/2024     16:09          98655 A2_task4_report.pdf
+-a----        27/12/2023     14:31           5117 checkout_and_payment.py
+-a----        05/01/2024     11:48          41807 htmlcov.zip
+-a----        27/12/2023     14:31         111018 instructions_A1.pdf
+-a----        27/12/2023     14:31           2005 login.py
+PS C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students> pytest --cov --cov-report html                                            
+=============================================================================== test session starts ===============================================================================
+platform win32 -- Python 3.11.4, pytest-7.4.3, pluggy-1.3.0
+rootdir: C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students
+plugins: cov-4.1.0                                                                            
+collected 126 items
+
+login_test.py ............                                                                                                                                                   [  9%]
+logout_test.py ..........                                                                                                                                                    [ 17%]
+test_BUI_checkoutAndPayment.py ..........                                                                                                                                    [ 25%]
+test_TDI_searchAndBuyProduct.py ...........                                                                                                                                  [ 34%]
+test_check_cart.py ..........                                                                                                                                                [ 42%]
+test_checkout.py ..........                                                                                                                                                  [ 50%]
+test_checkoutAndPayment.py .....F....F...F........                                                                                                                           [ 68%]
+test_display_csv_as_table.py ..........                                                                                                                                      [ 76%]
+test_display_filtered_table.py ..........                                                                                                                                    [ 84%]
+test_load_products_from_csv.py ......EEEE                                                                                                                                    [ 92%]
+test_search_and_buy_product.py ..........                                                                                                                                    [100%]
+
+===================================================================================== ERRORS ======================================================================================
+___________________________________________________________________ ERROR at setup of test_load_valid_mock_csv ____________________________________________________________________
+file C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students\test_load_products_from_csv.py, line 85
+  def test_load_valid_mock_csv(mock_csv):
+file C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students\test_load_products_from_csv.py, line 25
+  @pytest.fixture
+  def mock_csv(mocker):
+E       fixture 'mocker' not found
+>       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, copy_csv_file, cov, doctest_namespace, invalid_products_csv_key, mock_csv, mock_csv_float_error
+, mock_csv_float_error2, monkeypatch, no_cover, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, tmp_path, tmp_path_factory, tmpdir, tmpdir_
+factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students\test_load_products_from_csv.py:25
+___________________________________________________________________ ERROR at setup of test_load_change_mock_csv ___________________________________________________________________ 
+file C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students\test_load_products_from_csv.py, line 80
+  def test_load_change_mock_csv(mock_csv_float_error):
+file C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students\test_load_products_from_csv.py, line 30
+  @pytest.fixture
+  def mock_csv_float_error(mocker):
+E       fixture 'mocker' not found
+>       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, copy_csv_file, cov, doctest_namespace, invalid_products_csv_key, mock_csv, mock_csv_float_error
+, mock_csv_float_error2, monkeypatch, no_cover, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, tmp_path, tmp_path_factory, tmpdir, tmpdir_
+factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students\test_load_products_from_csv.py:30
+_____________________________________________________________ ERROR at setup of test_load_valid_mock_diff_values_csv ______________________________________________________________ 
+file C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students\test_load_products_from_csv.py, line 97
+  def test_load_valid_mock_diff_values_csv(mock_csv):
+file C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students\test_load_products_from_csv.py, line 25
+  @pytest.fixture
+  def mock_csv(mocker):
+E       fixture 'mocker' not found
+>       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, copy_csv_file, cov, doctest_namespace, invalid_products_csv_key, mock_csv, mock_csv_float_error
+, mock_csv_float_error2, monkeypatch, no_cover, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, tmp_path, tmp_path_factory, tmpdir, tmpdir_
+factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students\test_load_products_from_csv.py:25
+______________________________________________________________ ERROR at setup of test_load_change_mock_csv_val_error ______________________________________________________________ 
+file C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students\test_load_products_from_csv.py, line 108
+  def test_load_change_mock_csv_val_error(mock_csv_float_error2):
+file C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students\test_load_products_from_csv.py, line 35
+  @pytest.fixture
+  def mock_csv_float_error2(mocker):
+E       fixture 'mocker' not found
+>       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, copy_csv_file, cov, doctest_namespace, invalid_products_csv_key, mock_csv, mock_csv_float_error
+, mock_csv_float_error2, monkeypatch, no_cover, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, tmp_path, tmp_path_factory, tmpdir, tmpdir_
+factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students\test_load_products_from_csv.py:35
+==================================================================================== FAILURES ===================================================================================== 
+_______________________________________________________________________ test_success_multiple_item_checkout _______________________________________________________________________ 
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001B2FEA53690>
+
+    def test_success_multiple_item_checkout(capsys):
+        data = get_json("users.json")
+        login_info = {"username": "Oliver", "wallet": 60}
+
+        # Test item: #59. Vaccuum Cleaner = 30$
+        # Test item: #67. Gloves  =  5$
+        with patch('builtins.input', side_effect=["59", "67", "c", "y", "l","y"]):
+            checkoutAndPayment(login_info)
+
+        captured = capsys.readouterr()
+>       assert "Blender added to your cart." in captured.out
+E       assert 'Blender added to your cart.' in "1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Grapes - $3.0 - Units: 5\n... is not emp
+ty.You have following items\n['Vacuum Cleaner', 100.0, 1]\n['Umbrella', 7.0, 1]\nYou have been logged out\n"
+E        +  where "1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Grapes - $3.0 - Units: 5\n... is not empty.You have following items\n[
+'Vacuum Cleaner', 100.0, 1]\n['Umbrella', 7.0, 1]\nYou have been logged out\n" = CaptureResult(out="1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Un
+its: 8\n4. Grapes -...mpty.You have following items\n['Vacuum Cleaner', 100.0, 1]\n['Umbrella', 7.0, 1]\nYou have been logged out\n", err='').out
+
+test_checkoutAndPayment.py:84: AssertionError
+______________________________________________________________________ test_cancel_logout_forgotten_checkout ______________________________________________________________________ 
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001B2FF723C10>
+
+    def test_cancel_logout_forgotten_checkout(capsys):
+        data = get_json("users.json")
+        login_info = {"username": "Oliver", "wallet": 60}
+
+        # Test item: #58. Blender = 30$
+        with patch('builtins.input', side_effect=["59", "l", "n", "c", "y", "l","y"]):
+            checkoutAndPayment(login_info)
+
+        captured = capsys.readouterr()
+        print(captured.out)
+>       assert "Blender added to your cart." in captured.out
+E       assert 'Blender added to your cart.' in "1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Grapes - $3.0 - Units: 5\n... try again!
+\nYour cart is not empty.You have following items\n['Vacuum Cleaner', 100.0, 1]\nYou have been logged out\n"
+E        +  where "1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Grapes - $3.0 - Units: 5\n... try again!\nYour cart is not empty.You h
+ave following items\n['Vacuum Cleaner', 100.0, 1]\nYou have been logged out\n" = CaptureResult(out="1. Apple - $2.0 - Units: 10\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Un
+its: 8\n4. Grapes -...n!\nYour cart is not empty.You have following items\n['Vacuum Cleaner', 100.0, 1]\nYou have been logged out\n", err='').out
+
+test_checkoutAndPayment.py:185: AssertionError
+------------------------------------------------------------------------------ Captured stdout call ------------------------------------------------------------------------------- 
+1. Apple - $2.0 - Units: 10
+2. Banana - $1.0 - Units: 15
+3. Orange - $1.5 - Units: 8
+4. Grapes - $3.0 - Units: 5
+5. Strawberry - $4.0 - Units: 12
+6. Watermelon - $10.0 - Units: 1
+7. Carrot - $0.5 - Units: 20
+8. Broccoli - $1.5 - Units: 10
+9. Tomato - $1.0 - Units: 15
+10. Cucumber - $1.0 - Units: 12
+11. Potato - $0.75 - Units: 18
+12. Onion - $0.8 - Units: 20
+13. Bell Pepper - $1.2 - Units: 8
+14. Lettuce - $2.0 - Units: 5
+15. Spinach - $2.5 - Units: 7
+16. Milk - $3.0 - Units: 10
+17. Eggs - $2.0 - Units: 24
+18. Cheese - $5.0 - Units: 8
+19. Chicken Breast - $7.0 - Units: 4
+20. Salmon - $10.0 - Units: 2
+21. Ground Beef - $6.0 - Units: 5
+22. Pasta - $1.0 - Units: 15
+23. Rice - $1.5 - Units: 10
+24. Bread - $2.0 - Units: 8
+25. Butter - $3.0 - Units: 6
+26. Yogurt - $2.0 - Units: 12
+27. Ice Cream - $4.0 - Units: 6
+28. Chocolate - $2.5 - Units: 8
+29. Coffee - $5.0 - Units: 4
+30. Tea - $2.0 - Units: 10
+31. Soda - $1.5 - Units: 12
+32. Water - $1.0 - Units: 20
+33. Juice - $3.0 - Units: 8
+34. Chips - $2.5 - Units: 10
+35. Cookies - $3.0 - Units: 8
+36. Cereal - $2.0 - Units: 12
+37. Oatmeal - $1.5 - Units: 15
+38. Peanut Butter - $3.0 - Units: 6
+39. Jelly - $2.0 - Units: 8
+40. Toothpaste - $1.5 - Units: 10
+41. Shampoo - $2.0 - Units: 8
+42. Soap - $1.0 - Units: 12
+43. Toilet Paper - $0.75 - Units: 24
+44. Towel - $4.0 - Units: 6
+45. Laundry Detergent - $3.5 - Units: 8
+46. Dish Soap - $1.5 - Units: 12
+47. Broom - $5.0 - Units: 4
+48. Trash Bags - $2.0 - Units: 10
+49. Light Bulbs - $1.0 - Units: 15
+50. Batteries - $3.0 - Units: 6
+51. Phone Charger - $5.0 - Units: 4
+52. Laptop - $800.0 - Units: 1
+53. Headphones - $50.0 - Units: 1
+54. Bluetooth Speaker - $30.0 - Units: 1
+55. TV - $500.0 - Units: 1
+56. Microwave - $80.0 - Units: 1
+57. Coffee Maker - $40.0 - Units: 1
+58. Toaster - $20.0 - Units: 1
+59. Vacuum Cleaner - $100.0 - Units: 1
+60. Dumbbells - $20.0 - Units: 2
+61. Yoga Mat - $15.0 - Units: 1
+62. Running Shoes - $60.0 - Units: 1
+63. Backpack - $25.0 - Units: 1
+64. Sunglasses - $10.0 - Units: 1
+65. Hat - $8.0 - Units: 1
+66. Gloves - $5.0 - Units: 1
+67. Umbrella - $7.0 - Units: 1
+68. Notebook - $2.0 - Units: 5
+69. Pens - $0.5 - Units: 10
+70. Backpack - $15.0 - Units: 1
+Vacuum Cleaner added to your cart.
+Your cart is not empty.You have following items
+['Vacuum Cleaner', 100.0, 1]
+['Vacuum Cleaner', 100.0, 1]
+
+
+You don't have enough money to complete the purchase.
+Please try again!
+Your cart is not empty.You have following items
+['Vacuum Cleaner', 100.0, 1]
+You have been logged out
+
+___________________________________________________________________ test_insufficient_funds_after_spending_all ____________________________________________________________________ 
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001B2FF81BA50>
+
+    def test_insufficient_funds_after_spending_all(capsys):
+        data = get_json("users.json")
+        login_info = {"username": "Oliver", "wallet": 60}
+
+        # Test item: #63. Running shoes = 60$
+        # Test item: #1. Apple = 2$
+        with patch('builtins.input', side_effect=["63", "c", "y", "1", "c", "y", "l", "y"]):
+            checkoutAndPayment(login_info)
+
+        captured = capsys.readouterr()
+>       assert "Thank you for your purchase, Oliver! Your remaining balance is 0.0" in captured.out
+E       assert 'Thank you for your purchase, Oliver! Your remaining balance is 0.0' in "1. Apple - $2.0 - Units: 7\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Gr
+apes - $3.0 - Units: 5\n5...['Apple', 2.0, 7]\n\n\nThank you for your purchase, Oliver! Your remaining balance is 33.0\nYou have been logged out\n"
+E        +  where "1. Apple - $2.0 - Units: 7\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Units: 8\n4. Grapes - $3.0 - Units: 5\n5...['Apple', 2.0, 7]\n\n\nThank you for your
+ purchase, Oliver! Your remaining balance is 33.0\nYou have been logged out\n" = CaptureResult(out="1. Apple - $2.0 - Units: 7\n2. Banana - $1.0 - Units: 15\n3. Orange - $1.5 - Uni
+===================================================================== 3 failed, 119 passed, 4 errors in 3.27s ===================================================================== 
+PS C:\Users\morfeo\PycharmProjects\software-testing-assignments\A1_unit_testing_students>
+
+
+
+
